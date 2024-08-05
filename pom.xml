@@ -9,14 +9,14 @@
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>fr.insee</groupId>
-  <artifactId>metadata-parser-lib</artifactId>
-  <version>1.0</version>
+  <groupId>fr.insee.bpm</groupId>
+  <artifactId>bpm</artifactId>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>metadata-parser-lib</name>
+  <name>BPM</name>
   <description>Commmon library for metadata files parsing</description>
-  <url>https://gitlab.insee.fr/sic/traitements-post-collecte/metadata-parser-lib</url>
+  <url>https://github.com/InseeFr/BPM</url>
   <organization>
     <name>INSEE</name>
     <url>https://www.insee.fr</url>
@@ -33,6 +33,9 @@
   <developers>
     <developer>
       <name>Alexis Szmundy</name>
+    </developer>
+    <developer>
+      <name>Loic Henninger</name>
     </developer>
   </developers>
 
