@@ -51,11 +51,11 @@ public class MetadataModelTest {
 
         // unique choice question variable related to multiple choices question
         UcqVariable ucqMcq1 = new UcqVariable("CAR_OWNER", rootGroup, VariableType.STRING, "50");
-        ucqMcq1.setQuestionItemName("VEHICLE_OWNER");
+        ucqMcq1.setQuestionName("VEHICLE_OWNER");
         ucqMcq1.addModality("1", "Yes");
         ucqMcq1.addModality("2", "No");
         UcqVariable ucqMcq2 = new UcqVariable("MOTO_OWNER", rootGroup, VariableType.STRING, "50");
-        ucqMcq2.setQuestionItemName("VEHICLE_OWNER");
+        ucqMcq2.setQuestionName("VEHICLE_OWNER");
         ucqMcq2.addModality("1", "Yes");
         ucqMcq2.addModality("2", "No");
         metadataM.getVariables().putVariable(ucqMcq1);
@@ -186,7 +186,7 @@ public class MetadataModelTest {
                 .name("RELATIONSHIP_D").group(group).questionItemName("RELATIONSHIP").text("Other").build());
         //
         assertTrue(metadataModel.getVariables().hasMcq("RELATIONSHIP"));
-        assertSame("RELATIONSHIP", metadataModel.getVariables().getVariable("RELATIONSHIP_A").getQuestionItemName());
+        assertSame("RELATIONSHIP", metadataModel.getVariables().getVariable("RELATIONSHIP_A").getQuestionName());
         assertFalse(metadataModel.getVariables().hasMcq("ADDRESS"));
         assertFalse(metadataModel.getVariables().hasMcq("FIRST_NAME"));
         assertFalse(metadataModel.getVariables().hasMcq("CAR_COLOR"));

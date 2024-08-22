@@ -28,7 +28,7 @@ public class Variable {
 
 	/** Name of the item used to collect the answer. */
 	@Setter
-	protected String questionItemName;
+	protected String questionName;
 
 	/** Identifies if the variable is part a question grid */
 	@Setter

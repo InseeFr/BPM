@@ -199,9 +199,9 @@ public class DDIReader {
 		if (valuesElement != null) {
 			UcqVariable variable = new UcqVariable(variableName, group, variableType, variableLength);
 			if (questionName != null) {
-				variable.setQuestionItemName(questionName.getTextContent());
+				variable.setQuestionName(questionName.getTextContent());
 			} /*else if (mcqElement != null) {
-				variable.setQuestionItemName(mcqElement.getTextContent());
+				variable.setQuestionName(mcqElement.getTextContent());
 				variable.setInQuestionGrid(true);
 			}*/
 			NodeList valueElements = valuesElement.getChildNodes();
@@ -209,16 +209,16 @@ public class DDIReader {
 			variablesMap.putVariable(variable);
 		} else if (questionType != null && questionType.getTextContent().equals("MCQ")) {
 			McqVariable variable = new McqVariable(variableName, group, variableType, variableLength);
-			variable.setQuestionItemName(questionName.getTextContent());
+			variable.setQuestionName(questionName.getTextContent());
 			variable.setInQuestionGrid(true);
 			variable.setText(getFirstChildValue(variableElement, "Label"));
 			variablesMap.putVariable(variable);
 		} else {
 			Variable variable = new Variable(variableName, group, variableType, variableLength);
 			if (questionName != null) {
-				variable.setQuestionItemName(questionName.getTextContent());
+				variable.setQuestionName(questionName.getTextContent());
 			} else {
-				variable.setQuestionItemName(variableName);
+				variable.setQuestionName(variableName);
 			}
 			variablesMap.putVariable(variable);
 		}

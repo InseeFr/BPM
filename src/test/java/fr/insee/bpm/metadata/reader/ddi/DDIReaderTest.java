@@ -141,7 +141,7 @@ class DDIReaderTest {
 		assertInstanceOf(McqVariable.class, vqsMetadata.getVariables().getVariable("RELATION1"));
 		assertInstanceOf(McqVariable.class, vqsMetadata.getVariables().getVariable("RELATION4"));
 		McqVariable aidregA = (McqVariable) vqsMetadata.getVariables().getVariable("AIDREG_A");
-		assertEquals("AIDREG", aidregA.getQuestionItemName());
+		assertEquals("AIDREG", aidregA.getQuestionName());
 		assertEquals("1 - Oui, une aide aux activités de la vie quotidienne", aidregA.getText());
 		//
 		assertFalse(vqsMetadata.getVariables().getVariable("ADRESSE") instanceof McqVariable);
