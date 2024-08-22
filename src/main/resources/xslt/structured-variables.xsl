@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:g="ddi:group:3_3" xmlns:d="ddi:datacollection:3_3" xmlns:s="ddi:studyunit:3_3"
-    xmlns:r="ddi:reusable:3_3" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:a="ddi:archive:3_3"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:l="ddi:logicalproduct:3_3"
-    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
-    version="2.0"    
-    exclude-result-prefixes="xs g d s r xhtml a xs l">
-    
+<xsl:stylesheet
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+        xmlns:g="ddi:group:3_3" xmlns:d="ddi:datacollection:3_3" xmlns:s="ddi:studyunit:3_3"
+        xmlns:r="ddi:reusable:3_3" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:a="ddi:archive:3_3"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:l="ddi:logicalproduct:3_3"
+        xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
+        version="2.0"
+        exclude-result-prefixes="xs g d s r xhtml a xs l">
+
     <xsl:output indent="yes"/>
-    
+
     <xsl:variable name="root" select="."/>
-    
+
     <xd:doc>
         <xd:desc>Template de racine, on applique les templates de tous les enfants</xd:desc>
     </xd:doc>
@@ -25,7 +25,7 @@
         <xd:desc>
             <xd:p>Les variables sont rassemblées par "Groupes" :</xd:p>
             <xd:p>- un pour les variables de niveau questionnaire</xd:p>
-            <xd:p>- un pour chaque boucle ou ensemble de boucles (ex : dans un questionnaire sur les ménages, 
+            <xd:p>- un pour chaque boucle ou ensemble de boucles (ex : dans un questionnaire sur les ménages,
                 on peut avoir un groupe contenant un tableau dynamique des individus et une boucle sur les individus majeurs</xd:p>
             <xd:p>- un pour chaque tableau de liens 2 à 2</xd:p>
         </xd:desc>
@@ -60,26 +60,26 @@
     <xsl:template match="l:Variable" mode="variablesInfo">
         <Variable>
             <xsl:variable name="variable-name" select="current()/l:VariableName/r:String"/>
-            
+
             <Name><xsl:value-of select="$variable-name"/></Name>
             <Format>
                 <xsl:choose>
-                    <xsl:when test="l:VariableRepresentation/r:NumericRepresentation 
+                    <xsl:when test="l:VariableRepresentation/r:NumericRepresentation
                                   | l:VariableRepresentation/r:NumericRepresentationReference">
                         <xsl:choose>
                             <xsl:when test="descendant::*/@decimalPositions">
                                 <xsl:choose>
                                     <xsl:when test="descendant::*[@decimalPositions][1]/@decimalPositions!='0'">NUMBER</xsl:when>
                                     <xsl:otherwise>INTEGER</xsl:otherwise>
-                                </xsl:choose>  
+                                </xsl:choose>
                             </xsl:when>
-                            <xsl:otherwise>NUMBER</xsl:otherwise>                              
+                            <xsl:otherwise>NUMBER</xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <xsl:when test="l:VariableRepresentation/r:TextRepresentation">STRING</xsl:when>
                     <xsl:when test="l:VariableRepresentation/r:CodeRepresentation/r:CodeSubsetInformation/r:IncludedCode/r:CodeReference/r:ID='INSEE-COMMUN-CL-Booleen-1'">BOOLEAN</xsl:when>
                     <xsl:when test="l:VariableRepresentation/r:CodeRepresentation">STRING</xsl:when>
-                    <xsl:when test="l:VariableRepresentation/r:DateTimeRepresentation 
+                    <xsl:when test="l:VariableRepresentation/r:DateTimeRepresentation
                                   | l:VariableRepresentation/r:DateTimeRepresentationReference">DATE</xsl:when>
                     <xsl:otherwise>UNKNOWN</xsl:otherwise>
                 </xsl:choose>
@@ -145,7 +145,7 @@
                 <xsl:if test="l:VariableRepresentation/r:TextRepresentation">
                     <xsl:value-of select="l:VariableRepresentation/r:TextRepresentation/@maxLength"/>
                 </xsl:if>
-                <xsl:if test="l:VariableRepresentation/r:DateTimeRepresentation 
+                <xsl:if test="l:VariableRepresentation/r:DateTimeRepresentation
                             | l:VariableRepresentation/r:DateTimeRepresentationReference">23</xsl:if>
                 <xsl:if test="l:VariableRepresentation/r:CodeRepresentation">
                     <xsl:choose>
@@ -154,27 +154,53 @@
                             <xsl:variable name="code-id" select="current()/l:VariableRepresentation/r:CodeRepresentation/r:CodeListReference/r:ID"/>
                             <xsl:apply-templates select="$root//g:ResourcePackage/l:CodeListScheme/l:CodeList[r:ID=$code-id]" mode="CodesMaxlength"/>
                         </xsl:otherwise>
-                </xsl:choose>
+                    </xsl:choose>
                 </xsl:if>
             </Size>
-            
+
+
             <!-- QuestionGrid variables -->
             <xsl:if test="$root//g:ResourcePackage/d:QuestionScheme/d:QuestionGrid[r:OutParameter/r:ParameterName/r:String=$variable-name]">
-                <QGrid>
-                    <xsl:value-of select="$root//g:ResourcePackage/d:QuestionScheme/d:QuestionGrid[r:OutParameter/r:ParameterName/r:String=$variable-name]
-                                                                                                 /d:QuestionGridName/r:String"/>
-                </QGrid>
-                <Label><xsl:value-of select="r:Label/r:Content"/></Label>
+                <xsl:variable name="question-of-the-variable" select="$root//g:ResourcePackage/d:QuestionScheme/d:QuestionGrid[r:OutParameter/r:ParameterName/r:String=$variable-name]"/>
+                <QuestionName>
+                    <xsl:value-of select="$question-of-the-variable/d:QuestionGridName/r:String"/>
+                </QuestionName>
+                <xsl:choose>
+                    <xsl:when test="$question-of-the-variable/d:GridDimension/d:Roster">
+                        <QuestionType>DYNAMIC</QuestionType>
+                    </xsl:when>
+                    <xsl:when test="$question-of-the-variable/d:GridDimension/@rank='2'">
+                        <QuestionType>GRID</QuestionType>
+                    </xsl:when>
+                    <xsl:when test="$question-of-the-variable/d:StructuredMixedGridResponseDomain/d:GridResponseDomainInMixed[not(d:NominalDomain) and not(d:ResponseAttachmentLocation)]">
+                        <QuestionType>LIST</QuestionType>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <QuestionType>MCQ</QuestionType>
+                        <Label><xsl:value-of select="r:Label/r:Content"/></Label>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
             <!-- QuestionItem variable -->
             <xsl:if test="$root//g:ResourcePackage/d:QuestionScheme/d:QuestionItem[r:OutParameter/r:ParameterName/r:String=$variable-name]">
-                <QuestionItemName>
-                    <xsl:value-of select="$root//g:ResourcePackage/d:QuestionScheme/d:QuestionItem[r:OutParameter/r:ParameterName/r:String=$variable-name]
-                                                                                                 /d:QuestionItemName/r:String"/>
-                </QuestionItemName>
+                <xsl:variable name="question-of-the-variable" select="$root//g:ResourcePackage/d:QuestionScheme/d:QuestionItem[r:OutParameter/r:ParameterName/r:String=$variable-name]"/>
+                <QuestionName>
+                    <xsl:value-of select="$question-of-the-variable/d:QuestionItemName/r:String"/>
+                </QuestionName>
+                <xsl:choose>
+                    <xsl:when test="$question-of-the-variable/d:StructuredMixedResponseDomain">
+                        <QuestionType>MULTIPLE-WITHOUT-GRID</QuestionType>
+                    </xsl:when>
+                    <xsl:when test="$question-of-the-variable/r:UserAttributePair/r:AttributeValue='HouseholdPairing'">
+                        <QuestionType>PAIRWISE</QuestionType>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <QuestionType>SIMPLE</QuestionType>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
-            
-            <!-- UCQ variables -->
+
+            <!-- values for the Variables based on a code in a list -->
             <xsl:if test="l:VariableRepresentation/r:CodeRepresentation
                 and not(l:VariableRepresentation/r:CodeRepresentation/r:CodeSubsetInformation/r:IncludedCode/r:CodeReference/r:ID='INSEE-COMMUN-CL-Booleen-1')">
                 <xsl:variable name="code-id" select="current()/l:VariableRepresentation/r:CodeRepresentation/r:CodeListReference/r:ID"/>
@@ -182,41 +208,42 @@
                     <xsl:apply-templates select="$root//g:ResourcePackage/l:CodeListScheme/l:CodeList[r:ID=$code-id]/l:Code" mode="ucqInfo"/>
                 </Values>
             </xsl:if>
-            
+
             <xsl:variable name="module-id">
                 <xsl:choose>
                     <!-- Collected variable -->
                     <xsl:when test="r:SourceParameterReference">
-                        <xsl:apply-templates select="$root//g:ResourcePackage/d:ControlConstructScheme/*[d:ControlConstructReference/r:ID 
-                                                                                                        = $root//g:ResourcePackage/d:ControlConstructScheme/d:QuestionConstruct[r:QuestionReference/r:ID 
+                        <xsl:apply-templates select="$root//g:ResourcePackage/d:ControlConstructScheme/*[d:ControlConstructReference/r:ID
+                                                                                                        = $root//g:ResourcePackage/d:ControlConstructScheme/d:QuestionConstruct[r:QuestionReference/r:ID
                                                                                                                                                                                = current()/r:QuestionReference/r:ID]/r:ID]"
-                        mode="module"/>
+                                             mode="module"/>
                     </xsl:when>
                     <!-- calculated variable -->
                     <xsl:when test="l:VariableRepresentation/r:ProcessingInstructionReference">
                         <xsl:apply-templates
-                            select="$root//g:ResourcePackage/d:ControlConstructScheme/*[r:ID 
+                                select="$root//g:ResourcePackage/d:ControlConstructScheme/*[r:ID
                                                                                         = $root//g:ResourcePackage/d:ProcessingInstructionScheme/d:GenerationInstruction[r:ID = current()/l:VariableRepresentation/r:ProcessingInstructionReference/r:ID]
                                                                                                                                                                      /d:ControlConstructReference/r:ID]"
-                        mode="module"/>
+                                mode="module"/>
                     </xsl:when>
                     <!-- external variable -->
                     <xsl:otherwise/>
                 </xsl:choose>
             </xsl:variable>
-                <xsl:if test="$module-id !=''">
-                    <Sequence name="{$root//g:ResourcePackage/d:ControlConstructScheme/d:Sequence[r:ID=$module-id]
+            <xsl:if test="$module-id !=''">
+                <Sequence name="{$root//g:ResourcePackage/d:ControlConstructScheme/d:Sequence[r:ID=$module-id]
                                                                                                 /d:ConstructName/r:String[@xml:lang='fr-FR']}">
-                        <xsl:value-of select="$root//g:ResourcePackage/d:ControlConstructScheme/d:Sequence[r:ID=$module-id]
+                    <xsl:value-of select="$root//g:ResourcePackage/d:ControlConstructScheme/d:Sequence[r:ID=$module-id]
                                                                                                          /r:Label/r:Content[@xml:lang='fr-FR']"/>
-                    </Sequence>
-                </xsl:if>            
+                </Sequence>
+            </xsl:if>
         </Variable>
     </xsl:template>
 
     <xd:doc>
         <xd:desc>Méthode de calcul de la longueur maximale des codes d'une liste
-        TODO : prendre en compte les listes de codes qui en référencent d'autres</xd:desc>
+            TODO : prendre en compte les listes de codes qui en référencent d'autres
+            SOLUTION TEMPORAIRE : la méthode renvoit une valeur par défaut dans ce cas là</xd:desc>
     </xd:doc>
     <xsl:template match="l:CodeList" mode="CodesMaxlength">
         <xsl:choose>
@@ -234,7 +261,7 @@
             <xsl:otherwise>10</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xd:doc>
         <xd:desc>Détail de la valeur d'un code : libellé en attribut label ; valeur en contenu</xd:desc>
     </xd:doc>
@@ -246,7 +273,7 @@
             <xsl:value-of select="r:Value"/>
         </Value>
     </xsl:template>
-    
+
     <xd:doc>
         <xd:desc>template récursif pour obtenir les informations du module dont dépend la variable</xd:desc>
     </xd:doc>
@@ -261,5 +288,5 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
 </xsl:stylesheet>
