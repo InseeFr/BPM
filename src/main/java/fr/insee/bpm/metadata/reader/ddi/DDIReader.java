@@ -200,10 +200,7 @@ public class DDIReader {
 			UcqVariable variable = new UcqVariable(variableName, group, variableType, variableLength);
 			if (questionName != null) {
 				variable.setQuestionName(questionName.getTextContent());
-			} /*else if (mcqElement != null) {
-				variable.setQuestionName(mcqElement.getTextContent());
-				variable.setInQuestionGrid(true);
-			}*/
+			}
 			NodeList valueElements = valuesElement.getChildNodes();
 			addValues(variable, valueElements);
 			variablesMap.putVariable(variable);
@@ -215,6 +212,10 @@ public class DDIReader {
 			variablesMap.putVariable(variable);
 		} else {
 			Variable variable = new Variable(variableName, group, variableType, variableLength);
+			// Not sure if it's the right place to set this
+			if (questionType != null && questionType.getTextContent().equals("GRID")) {
+				variable.setInQuestionGrid(true);
+			}
 			if (questionName != null) {
 				variable.setQuestionName(questionName.getTextContent());
 			} else {
