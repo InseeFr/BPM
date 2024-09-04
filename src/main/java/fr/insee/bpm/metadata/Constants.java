@@ -43,6 +43,13 @@ public class Constants {
     public static final String OUTPUT_FOLDER_DATETIME_PATTERN = "yyyy_MM_dd_HH_mm_ss";
     public static final String ERRORS_FILE_NAME = "errors.txt";
 
+    // ----- Lunatic files attributes names
+
+    public static final String VALUE = "value";
+    public static final String LABEL = "label";
+    public static final String COMPONENT_TYPE = "componentType";
+    public static final String COMPONENTS = "components";
+
     /** Convert a string path to a URL object.
      *
      * @param filePath
