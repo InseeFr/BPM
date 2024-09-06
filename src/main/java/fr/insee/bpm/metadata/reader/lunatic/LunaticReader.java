@@ -41,7 +41,7 @@ public class LunaticReader {
 		try {
 			JsonNode rootNode = JsonReader.read(lunaticFile);
 			String lunaticModelVersion = rootNode.get(LUNATIC_MODEL_VERSION).asText();
-			boolean isLunaticV2 = ReaderUtils.compareVersions(lunaticModelVersion, "2.3.0") > 0;
+			boolean isLunaticV2 = LunaticUtils.compareVersions(lunaticModelVersion, "2.3.0") > 0;
 
 			CalculatedVariables calculatedVariables = new CalculatedVariables();
 
@@ -150,6 +150,15 @@ public class LunaticReader {
 			for (JsonNode comp : rootComponents) {
 				addResponsesAndMissing(comp, rootGroup, variables, metadataModel);
 			}
+			// We need to add the filter results
+			List<String> varToRemove = new ArrayList<>();
+			for (String variable : variables){
+				if (variable.startsWith(FILTER_RESULT_PREFIX)){
+					LunaticUtils.addLunaticVariable(metadataModel, variable, Constants.FILTER_RESULT_PREFIX, VariableType.BOOLEAN);
+					varToRemove.add(variable);
+				}
+			}
+			varToRemove.forEach(variables::remove);
 			// We add the remaining (not identified in any loops nor root) variables to the root group
 			variables.forEach(
 					varName -> metadataModel.getVariables().putVariable(new Variable(varName, rootGroup, VariableType.STRING)));
@@ -195,7 +204,7 @@ public class LunaticReader {
 		JsonNode primaryComponents = component.get(COMPONENTS);
 		//We create a group only with the name of the first response
 		//Then we add all the variables found in response to the newly created group
-		String groupName = ReaderUtils.getFirstResponseName(primaryComponents);
+		String groupName = LunaticUtils.getFirstResponseName(primaryComponents);
 		Group group = getNewGroup(metadataModel, groupName, parentGroup);
 		for (JsonNode primaryComponent : primaryComponents) {
 			addResponsesAndMissing(primaryComponent, group, variables, metadataModel);
@@ -246,13 +255,15 @@ public class LunaticReader {
 		//We read the name of the collected variables in response(s)
 		//And we deduce the variable type by looking at the component that encapsulate the variable
 		ComponentLunatic componentType = ComponentLunatic.fromJsonName(primaryComponent.get(COMPONENT_TYPE).asText());
-		boolean isLunaticV2 = ReaderUtils.compareVersions(metadataModel.getSpecVersions().get(SpecType.LUNATIC), "2.3.0") > 0;
+		boolean isLunaticV2 = LunaticUtils.compareVersions(metadataModel.getSpecVersions().get(SpecType.LUNATIC), "2.3.0") > 0;
 		ComponentProcessor processor = ComponentProcessorFactory.getProcessor(componentType);
 		processor.process(primaryComponent, group, variables, metadataModel, isLunaticV2);
 
 		//We also had the missing variable if it exists (only one missing variable even if multiple responses)
 		addMissingVariable(primaryComponent, group, variables, metadataModel);
 	}
+
+
 
 	/**
 	 * Add the missing variable defined in the component if present

@@ -1,16 +1,20 @@
 package fr.insee.bpm.metadata.reader.lunatic;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import fr.insee.bpm.metadata.model.Group;
+import fr.insee.bpm.metadata.model.MetadataModel;
+import fr.insee.bpm.metadata.model.Variable;
+import fr.insee.bpm.metadata.model.VariableType;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 
 @Log4j2
-public class ReaderUtils {
+public class LunaticUtils {
 
     private static final String RESPONSE = "response";
 
-    private ReaderUtils() {
+    private LunaticUtils() {
         throw new IllegalStateException("Utility class");
     }
 
@@ -89,6 +93,25 @@ public class ReaderUtils {
         }
 
         return commonPrefix;
+    }
+
+    public static void addLunaticVariable(MetadataModel metadataModel, String missingVar, String prefixOrSuffix, VariableType varType) {
+        String correspondingVariableName = missingVar.replace(prefixOrSuffix, "");
+        Group group;
+        if (metadataModel.getVariables().hasVariable(correspondingVariableName)) { // the variable is directly found
+            group = metadataModel.getVariables().getVariable(correspondingVariableName).getGroup();
+        } else if (metadataModel.getVariables().isInQuestionGrid(correspondingVariableName)) { // otherwise, it should be from a question grid
+            group = metadataModel.getVariables().getQuestionGridGroup(correspondingVariableName);
+        } else {
+            group = metadataModel.getGroup(metadataModel.getGroupNames().getFirst());
+            log.warn(String.format(
+                    "No information from the DDI about question named \"%s\".",
+                    correspondingVariableName));
+            log.warn(String.format(
+                    "\"%s\" has been arbitrarily associated with group \"%s\".",
+                    missingVar, group.getName()));
+        }
+        metadataModel.getVariables().putVariable(new Variable(missingVar, group, varType));
     }
 
 }

@@ -5,7 +5,7 @@ import fr.insee.bpm.metadata.model.Group;
 import fr.insee.bpm.metadata.model.McqVariable;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.model.VariableType;
-import fr.insee.bpm.metadata.reader.lunatic.ReaderUtils;
+import fr.insee.bpm.metadata.reader.lunatic.LunaticUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +32,11 @@ public class CheckboxGroupProcessor implements ComponentProcessor {
         JsonNode responses = checkboxComponent.get("responses");
         List<String> responsesName= new ArrayList<>();
         for (JsonNode response : responses){
-            responsesName.add(ReaderUtils.getVariableName(response));
+            responsesName.add(LunaticUtils.getVariableName(response));
         }
-        String questionName = ReaderUtils.findLongestCommonPrefix(responsesName);
+        String questionName = LunaticUtils.findLongestCommonPrefix(responsesName);
         for (JsonNode response : responses){
-            variableName = ReaderUtils.getVariableName(response);
+            variableName = LunaticUtils.getVariableName(response);
             McqVariable mcqVariable = new McqVariable(variableName, group, VariableType.BOOLEAN);
             if (isLunaticV2) mcqVariable.setText(response.get(LABEL).get(VALUE).asText());
             if (!isLunaticV2) mcqVariable.setText(response.get(LABEL).asText());
