@@ -13,13 +13,15 @@ public enum ComponentLunatic {
     INPUT_NUMBER("InputNumber", null),
     INPUT("Input", VariableType.STRING),
     TEXT_AREA("Textarea", VariableType.STRING),
+    DURATION("Duration", VariableType.DATE),
     RADIO("Radio", VariableType.STRING),
     CHECKBOX_ONE("CheckboxOne", VariableType.STRING),
     DROPDOWN("Dropdown", VariableType.STRING),
     CHECKBOX_GROUP("CheckboxGroup", VariableType.BOOLEAN),
     SUGGESTER("Suggester", VariableType.STRING),
     PAIRWISE_LINKS("PairwiseLinks", null),
-    TABLE("Table", null);
+    TABLE("Table", null),
+    QUESTION("Question", null);
 
     private final String jsonName;
     // Represents the type of the variable expected with this component type

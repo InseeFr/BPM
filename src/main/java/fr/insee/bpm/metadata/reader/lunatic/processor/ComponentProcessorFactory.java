@@ -10,7 +10,7 @@ public class ComponentProcessorFactory {
 
     public static ComponentProcessor getProcessor(ComponentLunatic componentType) {
         return switch (componentType) {
-            case DATE_PICKER, CHECKBOX_BOOLEAN, INPUT, TEXT_AREA, SUGGESTER ->
+            case DATE_PICKER, DURATION, CHECKBOX_BOOLEAN, INPUT, TEXT_AREA, SUGGESTER ->
                     new SimpleVariableProcessor(componentType);
             case INPUT_NUMBER -> new InputNumberProcessor();
             case DROPDOWN -> new DropdownProcessor();
@@ -18,6 +18,7 @@ public class ComponentProcessorFactory {
             case CHECKBOX_GROUP -> new CheckboxGroupProcessor();
             case PAIRWISE_LINKS -> new PairwiseLinksProcessor();
             case TABLE -> new TableProcessor();
+            case QUESTION -> new QuestionProcessor();
             case null, default -> new UnknownComponentProcessor();
         };
     }
