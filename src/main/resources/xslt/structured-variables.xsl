@@ -219,15 +219,20 @@
         TODO : prendre en compte les listes de codes qui en référencent d'autres</xd:desc>
     </xd:doc>
     <xsl:template match="l:CodeList" mode="CodesMaxlength">
-        <xsl:variable name="max-length">
-            <xsl:for-each select="l:Code/string-length(r:Value)">
-                <xsl:sort data-type="number" order="descending" />
-                <xsl:if test="position()=1">
-                    <xsl:value-of select="." />
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:value-of select="max($max-length)"/>
+        <xsl:choose>
+            <xsl:when test="l:Code">
+                <xsl:variable name="max-length">
+                    <xsl:for-each select="l:Code/string-length(r:Value)">
+                        <xsl:sort data-type="number" order="descending" />
+                        <xsl:if test="position()=1">
+                            <xsl:value-of select="." />
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:value-of select="max($max-length)"/>
+            </xsl:when>
+            <xsl:otherwise>10</xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xd:doc>
