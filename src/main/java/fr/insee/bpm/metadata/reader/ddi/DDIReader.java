@@ -60,9 +60,8 @@ public class DDIReader {
 			Path variablesTempFilePath = variablesFile.toPath();
 
 			transformDDI(ddiUrlString, ddiInputStream, variablesTempFilePath);
-
 			MetadataModel metadataModel = readVariables(variablesTempFilePath);
-			//Files.delete(variablesFile.toPath());
+			Files.delete(variablesFile.toPath());
 			return metadataModel;
 		}
 
@@ -198,15 +197,13 @@ public class DDIReader {
 
 		if (valuesElement != null) {
 			UcqVariable variable = new UcqVariable(variableName, group, variableType, variableLength);
-			if (questionName != null) {
-				variable.setQuestionName(questionName.getTextContent());
-			}
+			setQuestionName(questionName, variable);
 			NodeList valueElements = valuesElement.getChildNodes();
 			addValues(variable, valueElements);
 			variablesMap.putVariable(variable);
 		} else if (questionType != null && questionType.getTextContent().equals("MCQ")) {
 			McqVariable variable = new McqVariable(variableName, group, variableType, variableLength);
-			variable.setQuestionName(questionName.getTextContent());
+			setQuestionName(questionName, variable);
 			variable.setInQuestionGrid(true);
 			variable.setText(getFirstChildValue(variableElement, "Label"));
 			variablesMap.putVariable(variable);
@@ -222,6 +219,12 @@ public class DDIReader {
 				variable.setQuestionName(variableName);
 			}
 			variablesMap.putVariable(variable);
+		}
+	}
+
+	private static void setQuestionName(Node questionNameNode, Variable variable) {
+		if (questionNameNode != null) {
+			variable.setQuestionName(questionNameNode.getTextContent());
 		}
 	}
 
