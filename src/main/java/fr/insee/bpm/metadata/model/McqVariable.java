@@ -30,7 +30,7 @@ public class McqVariable extends Variable {
 	@Builder
 	public McqVariable(String name, Group group, String questionItemName, String text) {
 		super(name, group, VariableType.BOOLEAN);
-		this.questionItemName = questionItemName;
+		this.questionName = questionItemName;
 		this.text = text;
 	}
 

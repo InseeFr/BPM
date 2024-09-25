@@ -349,7 +349,7 @@ public class LunaticReader {
 			if (isLunaticV2) mcqVariable.setText(response.get(LABEL).get(VALUE).asText());
 			if (!isLunaticV2) mcqVariable.setText(response.get(LABEL).asText());
 			mcqVariable.setInQuestionGrid(true);
-			mcqVariable.setQuestionItemName(questionName);
+			mcqVariable.setQuestionName(questionName);
 			metadataModel.getVariables().putVariable(mcqVariable);
 			variables.remove(variableName);
 		}

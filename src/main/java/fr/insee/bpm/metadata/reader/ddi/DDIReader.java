@@ -60,7 +60,6 @@ public class DDIReader {
 			Path variablesTempFilePath = variablesFile.toPath();
 
 			transformDDI(ddiUrlString, ddiInputStream, variablesTempFilePath);
-
 			MetadataModel metadataModel = readVariables(variablesTempFilePath);
 			Files.delete(variablesFile.toPath());
 			return metadataModel;
@@ -185,9 +184,9 @@ public class DDIReader {
 		String variableLength = getFirstChildValue(variableElement, "Size");
 		String sequenceName= getFirstChildAttribute(variableElement, "Sequence","name");
 
-		Node questionItemName = getFirstChildNode(variableElement, "QuestionItemName");
+		Node questionName = getFirstChildNode(variableElement, "QuestionName");
 		Node valuesElement = getFirstChildNode(variableElement, "Values");
-		Node mcqElement = getFirstChildNode(variableElement, "QGrid");
+		Node questionType = getFirstChildNode(variableElement, "QuestionType");
 
 		if (sequenceName != null){
 			Sequence sequence = new Sequence(sequenceName);
@@ -198,29 +197,34 @@ public class DDIReader {
 
 		if (valuesElement != null) {
 			UcqVariable variable = new UcqVariable(variableName, group, variableType, variableLength);
-			if (questionItemName != null) {
-				variable.setQuestionItemName(questionItemName.getTextContent());
-			} else if (mcqElement != null) {
-				variable.setQuestionItemName(mcqElement.getTextContent());
-				variable.setInQuestionGrid(true);
-			}
+			setQuestionName(questionName, variable);
 			NodeList valueElements = valuesElement.getChildNodes();
 			addValues(variable, valueElements);
 			variablesMap.putVariable(variable);
-		} else if (mcqElement != null) {
+		} else if (questionType != null && questionType.getTextContent().equals("MCQ")) {
 			McqVariable variable = new McqVariable(variableName, group, variableType, variableLength);
-			variable.setQuestionItemName(mcqElement.getTextContent());
+			setQuestionName(questionName, variable);
 			variable.setInQuestionGrid(true);
 			variable.setText(getFirstChildValue(variableElement, "Label"));
 			variablesMap.putVariable(variable);
 		} else {
 			Variable variable = new Variable(variableName, group, variableType, variableLength);
-			if (questionItemName != null) {
-				variable.setQuestionItemName(questionItemName.getTextContent());
+			// Not sure if it's the right place to set this
+			if (questionType != null && questionType.getTextContent().equals("GRID")) {
+				variable.setInQuestionGrid(true);
+			}
+			if (questionName != null) {
+				variable.setQuestionName(questionName.getTextContent());
 			} else {
-				variable.setQuestionItemName(variableName);
+				variable.setQuestionName(variableName);
 			}
 			variablesMap.putVariable(variable);
+		}
+	}
+
+	private static void setQuestionName(Node questionNameNode, Variable variable) {
+		if (questionNameNode != null) {
+			variable.setQuestionName(questionNameNode.getTextContent());
 		}
 	}
 
