@@ -19,6 +19,7 @@ public class ComponentProcessorFactory {
             case PAIRWISE_LINKS -> new PairwiseLinksProcessor();
             case TABLE -> new TableProcessor();
             case QUESTION -> new QuestionProcessor();
+            case DYNAMIC_TABLE -> new DynamicTableProcessor();
             case null, default -> new UnknownComponentProcessor();
         };
     }

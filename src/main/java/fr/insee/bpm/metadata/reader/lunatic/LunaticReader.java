@@ -205,7 +205,7 @@ public class LunaticReader {
 		//We create a group only with the name of the first response
 		//Then we add all the variables found in response to the newly created group
 		String groupName = LunaticUtils.getFirstResponseName(primaryComponents);
-		Group group = getNewGroup(metadataModel, groupName, parentGroup);
+		Group group = LunaticUtils.getNewGroup(metadataModel, groupName, parentGroup);
 		for (JsonNode primaryComponent : primaryComponents) {
 			addResponsesAndMissing(primaryComponent, group, variables, metadataModel);
 		}
@@ -237,7 +237,7 @@ public class LunaticReader {
 				groupName = "UNNAMED_" + i;
 			}
 		}
-		Group group = getNewGroup(metadataModel, groupName, parentGroup);
+		Group group = LunaticUtils.getNewGroup(metadataModel, groupName, parentGroup);
 		iterateOnComponentsToFindResponses(component, variables, metadataModel, group);
 		return group;
 	}
@@ -305,13 +305,6 @@ public class LunaticReader {
 			log.error(EXCEPTION_MESSAGE, lunaticFile);
 			return null;
 		}
-	}
-
-	private static Group getNewGroup(MetadataModel metadataModel, String newName, Group parentGroup) {
-		log.info("Creation of group : {}", newName);
-		Group group = new Group(String.format("%s_%s",Constants.LOOP_NAME_PREFIX,newName), parentGroup.getName());
-		metadataModel.putGroup(group);
-		return group;
 	}
 
 }

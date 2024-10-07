@@ -1,6 +1,7 @@
 package fr.insee.bpm.metadata.reader.lunatic;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import fr.insee.bpm.metadata.Constants;
 import fr.insee.bpm.metadata.model.Group;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.model.Variable;
@@ -112,6 +113,13 @@ public class LunaticUtils {
                     missingVar, group.getName()));
         }
         metadataModel.getVariables().putVariable(new Variable(missingVar, group, varType));
+    }
+
+    public static Group getNewGroup(MetadataModel metadataModel, String newName, Group parentGroup) {
+        log.info("Creation of group : {}", newName);
+        Group group = new Group(String.format("%s_%s", Constants.LOOP_NAME_PREFIX,newName), parentGroup.getName());
+        metadataModel.putGroup(group);
+        return group;
     }
 
 }
