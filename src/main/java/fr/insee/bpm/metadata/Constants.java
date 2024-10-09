@@ -10,6 +10,7 @@ public class Constants {
     // ----- Explicit Variables Names
     public static final String MODE_VARIABLE_NAME = "MODE_KRAFTWERK";
     public static final String FILTER_RESULT_PREFIX = "FILTER_RESULT_";
+    public static final String PROGRESS_VARIABLE_SUFFIX = "_PROGRESS";
     public static final String MISSING_SUFFIX = "_MISSING";
     public static final String COLLECTED = "COLLECTED";
     private static final String[] ENO_VARIABLES = {"COMMENT_QE","COMMENT_UE","HEURE_REMPL","MIN_REMPL"};

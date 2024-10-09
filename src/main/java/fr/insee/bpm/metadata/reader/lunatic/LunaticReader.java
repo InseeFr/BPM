@@ -138,7 +138,13 @@ public class LunaticReader {
 			rootNode = JsonReader.read(lunaticFile);
 			List<String> variables = new ArrayList<>();
 			JsonNode variablesNode = rootNode.get(VARIABLES);
-			variablesNode.forEach(newVar -> variables.add(newVar.get("name").asText()));
+			variablesNode.forEach(newVar -> {
+				String varName = newVar.get("name").asText();
+				// We do not add roundabouts PROGRESS variables to the metadata model
+				if (!varName.endsWith(Constants.PROGRESS_VARIABLE_SUFFIX)) {
+					variables.add(varName);
+				}
+			});
 			// Root group is created in VariablesMap constructor
 			MetadataModel metadataModel = new MetadataModel();
 			metadataModel.putSpecVersions(SpecType.LUNATIC,rootNode.get(LUNATIC_MODEL_VERSION).asText());
