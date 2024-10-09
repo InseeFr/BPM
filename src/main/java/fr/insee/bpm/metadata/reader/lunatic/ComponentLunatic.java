@@ -23,7 +23,8 @@ public enum ComponentLunatic {
     TABLE("Table", null),
     // For historical reasons the component representing a dynamic table is named RosterForLoop in Lunatic
     DYNAMIC_TABLE("RosterForLoop", null),
-    QUESTION("Question", null);
+    QUESTION("Question", null),
+    ROUNDABOUT("Roundabout", null);
 
     private final String jsonName;
     // Represents the type of the variable expected with this component type

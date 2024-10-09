@@ -9,6 +9,7 @@ import fr.insee.bpm.metadata.model.VariableType;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 public class LunaticUtils {
@@ -28,10 +29,16 @@ public class LunaticUtils {
         return component.get(RESPONSE).get("name").asText();
     }
 
-    public static String getFirstResponseName(JsonNode components){
-        for(JsonNode component : components){
-            if (component.has(RESPONSE)){
-                return component.get(RESPONSE).get("name").asText();
+    public static String getFirstResponseName(JsonNode components) {
+        for (JsonNode component : components) {
+            ComponentLunatic componentLunatic = ComponentLunatic.fromJsonName(component.get(Constants.COMPONENT_TYPE).asText());
+            if (componentLunatic == ComponentLunatic.QUESTION) {
+                String result = getFirstResponseName(component.get(Constants.COMPONENTS));
+                if (result != null) return result;
+            } else {
+                if (component.has(RESPONSE)) {
+                    return component.get(RESPONSE).get("name").asText();
+                }
             }
         }
         return null;

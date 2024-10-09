@@ -20,6 +20,7 @@ public class ComponentProcessorFactory {
             case TABLE -> new TableProcessor();
             case QUESTION -> new QuestionProcessor();
             case DYNAMIC_TABLE -> new DynamicTableProcessor();
+            case ROUNDABOUT -> new RoundaboutProcessor();
             case null, default -> new UnknownComponentProcessor();
         };
     }
