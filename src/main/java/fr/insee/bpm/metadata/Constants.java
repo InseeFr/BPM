@@ -10,6 +10,7 @@ public class Constants {
     // ----- Explicit Variables Names
     public static final String MODE_VARIABLE_NAME = "MODE_KRAFTWERK";
     public static final String FILTER_RESULT_PREFIX = "FILTER_RESULT_";
+    public static final String PROGRESS_VARIABLE_SUFFIX = "_PROGRESS";
     public static final String MISSING_SUFFIX = "_MISSING";
     public static final String COLLECTED = "COLLECTED";
     private static final String[] ENO_VARIABLES = {"COMMENT_QE","COMMENT_UE","HEURE_REMPL","MIN_REMPL"};
@@ -42,6 +43,13 @@ public class Constants {
     public static final String END_LINE = "\n";
     public static final String OUTPUT_FOLDER_DATETIME_PATTERN = "yyyy_MM_dd_HH_mm_ss";
     public static final String ERRORS_FILE_NAME = "errors.txt";
+
+    // ----- Lunatic files attributes names
+
+    public static final String VALUE = "value";
+    public static final String LABEL = "label";
+    public static final String COMPONENT_TYPE = "componentType";
+    public static final String COMPONENTS = "components";
 
     /** Convert a string path to a URL object.
      *
