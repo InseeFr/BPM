@@ -123,8 +123,11 @@ public class LunaticUtils {
     }
 
     public static Group getNewGroup(MetadataModel metadataModel, String newName, Group parentGroup) {
-        log.info("Creation of group : {}", newName);
-        Group group = new Group(String.format("%s_%s", Constants.LOOP_NAME_PREFIX,newName), parentGroup.getName());
+        String newGroupName = String.format("%s_%s", Constants.LOOP_NAME_PREFIX,newName);
+        if (!metadataModel.hasGroup(newGroupName)) {
+            log.info("Creation of group : {}", newName);
+        }
+        Group group = new Group(newGroupName, parentGroup.getName());
         metadataModel.putGroup(group);
         return group;
     }
