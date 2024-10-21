@@ -37,7 +37,7 @@ public class LunaticUtils {
                 if (result != null) return result;
             } else {
                 if (component.has(RESPONSE)) {
-                    return component.get(RESPONSE).get("name").asText();
+                    return getVariableName(component);
                 }
             }
         }
@@ -77,29 +77,21 @@ public class LunaticUtils {
      * @return the common prefix
      */
     public static String findLongestCommonPrefix(List<String> similarStrings) {
-        int minLength = similarStrings.getFirst().length();
-        for(String str : similarStrings){
-            if (str.length()<minLength){
-                minLength = str.length();
-            }
-        }
+        int minLength = similarStrings.stream()
+                .mapToInt(String::length)
+                .min()
+                .orElse(similarStrings.getFirst().length());
         String commonPrefix="";
         for(int i=1;i<minLength;i++){
             boolean isCommon=true;
             String stringToTest = similarStrings.getFirst().substring(0,i);
-            for (String str : similarStrings){
-                if (!str.startsWith(stringToTest)){
-                    isCommon=false;
-                    break;
-                }
-            }
+            isCommon = similarStrings.stream().allMatch(str -> str.startsWith(stringToTest));
             if (isCommon){
                 commonPrefix = stringToTest;
             } else {
                 break;
             }
         }
-
         return commonPrefix;
     }
 
