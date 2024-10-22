@@ -15,9 +15,8 @@ public class DynamicTableProcessor implements ComponentProcessor {
     public void process(JsonNode primaryComponent, Group group, List<String> variables, MetadataModel metadataModel, boolean isLunaticV2) {
         JsonNode components = primaryComponent.get(COMPONENTS);
         // We have to create a group specific to the dynamic table
-        // The name is the name of the first response
-        JsonNode firstResponseComponent = components.get(0);
-        String groupName = LunaticUtils.getVariableName(firstResponseComponent);
+        // The name is the name of the first response collected
+        String groupName = LunaticUtils.getFirstResponseName(components);
         Group dynTabGroup = LunaticUtils.getNewGroup(metadataModel,groupName,group);
         for (JsonNode component : components) {
             ComponentLunatic componentType = ComponentLunatic.fromJsonName(component.get("componentType").asText());

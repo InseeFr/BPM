@@ -133,5 +133,13 @@ class LunaticUtilsTest {
         assertThat(getFirstResponseName(components)).isEqualTo("responseName1");
     }
 
+    @Test
+    void getFirstResponseName_withTextComponent() throws Exception {
+        String json = "[{\"componentType\": \"Text\", \"label\": {\"value\": \"notCollectedData\",\"type\": \"VTL|MD\"}}, " +
+                "{\"componentType\": \"Input\", \"response\": {\"name\": \"firstCollectedData\"}}]";
+        JsonNode components = objectMapper.readTree(json);
+        assertThat(getFirstResponseName(components)).isEqualTo("firstCollectedData");
+    }
+
 
 }
