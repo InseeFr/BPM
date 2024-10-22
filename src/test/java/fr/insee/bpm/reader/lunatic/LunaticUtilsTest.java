@@ -1,16 +1,21 @@
 package fr.insee.bpm.reader.lunatic;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static fr.insee.bpm.metadata.reader.lunatic.LunaticUtils.compareVersions;
-import static fr.insee.bpm.metadata.reader.lunatic.LunaticUtils.findLongestCommonPrefix;
+import static fr.insee.bpm.metadata.reader.lunatic.LunaticUtils.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.xmlunit.assertj3.XmlAssert.assertThat;
 
 class LunaticUtilsTest {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    // Tests for compareVersion method
 
     @Test
     void compareVersion_testEqualVersions() {
@@ -60,8 +65,10 @@ class LunaticUtilsTest {
         assertThrows(NumberFormatException.class,() -> compareVersions("1..0", "1.0"));
     }
 
+    // Tests for findLongestCommonPrefix method
+
     @Test
-    void findLongestCommonPrefixTest(){
+    void findLongestCommonPrefix_exists(){
         List<String> strs = new ArrayList<>();
         strs.add("VARIABLE1");
         strs.add("VARIABLE2");
@@ -69,6 +76,62 @@ class LunaticUtilsTest {
         assertThat(findLongestCommonPrefix(strs)).isEqualTo("VAR");
     }
 
+    @Test
+    void findLongestCommonPrefix_NoCommonPrefix() {
+        List<String> input = List.of("dog", "racecar", "car");
+        assertThat(findLongestCommonPrefix(input)).isEqualTo("");
+    }
+
+    @Test
+    void findLongestCommonPrefix_SingleString() {
+        List<String> input = List.of("hello");
+        assertThat(findLongestCommonPrefix(input)).isEqualTo("hello");
+    }
+
+    @Test
+    void findLongestCommonPrefix_WithEmptyString() {
+        List<String> input = List.of("", "test", "testing");
+        assertThat(findLongestCommonPrefix(input)).isEqualTo("");
+    }
+
+    @Test
+    void findLongestCommonPrefix_EmptyList() {
+        List<String> input = List.of();
+        assertThat(findLongestCommonPrefix(input)).isEqualTo("");
+    }
+
+    @Test
+    void findLongestCommonPrefix_VeryShortStrings() {
+        List<String> input1 = List.of("a", "a", "a");
+        List<String> input2 = List.of("a", "a", "b");
+
+        assertThat(findLongestCommonPrefix(input1)).isEqualTo("a");
+        assertThat(findLongestCommonPrefix(input2)).isEqualTo("");
+    }
+
+    // Tests for getFirstResponseName method
+
+    @Test
+    void getFirstResponseName_testSingleComponentWithResponse() throws Exception {
+        String json = "[{\"componentType\": \"Radio\", \"response\": {\"name\": \"responseName1\"}}]";
+        JsonNode components = objectMapper.readTree(json);
+        assertThat(getFirstResponseName(components)).isEqualTo("responseName1");
+    }
+
+    @Test
+    void getFirstResponseName_SingleComponentQuestion() throws Exception {
+        String json = "[{\"componentType\": \"Question\", \"components\": [{\"componentType\": \"Input\", \"response\": {\"name\": \"responseName1\"}}]}]";
+        JsonNode components = objectMapper.readTree(json);
+        assertThat(getFirstResponseName(components)).isEqualTo("responseName1");
+    }
+
+    @Test
+    void getFirstResponseName_MultipleComponentsWithResponse() throws Exception {
+        String json = "[{\"componentType\": \"Input\", \"response\": {\"name\": \"responseName1\"}}, " +
+                "{\"componentType\": \"Input\", \"response\": {\"name\": \"responseName2\"}}]";
+        JsonNode components = objectMapper.readTree(json);
+        assertThat(getFirstResponseName(components)).isEqualTo("responseName1");
+    }
 
 
 }

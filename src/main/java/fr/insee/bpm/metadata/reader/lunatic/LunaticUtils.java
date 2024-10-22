@@ -80,9 +80,9 @@ public class LunaticUtils {
         int minLength = similarStrings.stream()
                 .mapToInt(String::length)
                 .min()
-                .orElse(similarStrings.getFirst().length());
+                .orElse(0);
         String commonPrefix="";
-        for(int i=1;i<minLength;i++){
+        for(int i=1;i<=minLength;i++){
             boolean isCommon=true;
             String stringToTest = similarStrings.getFirst().substring(0,i);
             isCommon = similarStrings.stream().allMatch(str -> str.startsWith(stringToTest));
