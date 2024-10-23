@@ -27,7 +27,7 @@ class SimpleVariableProcessorTest {
     @BeforeEach
     void setUp() {
         // GIVEN
-        metadataModel = new MetadataModelStub();
+        metadataModel = new MetadataModel();
 
         // Initialization of variables remaining to add to the metadata model
         variables = new ArrayList<>(List.of("QSIMPLETXT","VAR2"));
