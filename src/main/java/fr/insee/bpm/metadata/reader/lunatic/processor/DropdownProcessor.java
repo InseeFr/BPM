@@ -19,7 +19,11 @@ public class DropdownProcessor implements ComponentProcessor {
         UcqVariable ucqVar = new UcqVariable(variableName, group, VariableType.STRING);
         JsonNode modalities = primaryComponent.get("options");
         for (JsonNode modality : modalities){
-            ucqVar.addModality(modality.get(VALUE).asText(), modality.get(LABEL).asText());
+            String value = modality.get(VALUE).asText();
+            String label = modality.get(LABEL).get(VALUE).asText();
+            // Remove unnecessary double quotes
+            label = label.replace("\"", "");
+            ucqVar.addModality(value, label);
         }
         metadataModel.getVariables().putVariable(ucqVar);
         variables.remove(variableName);
