@@ -19,11 +19,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class InputNumberProcessorTest {
+class InputNumberProcessorTest {
 
     private InputNumberProcessor processor;
     private MetadataModel metadataModel;
-    private JsonNode InputNumberComponents;
+    private JsonNode inputNumberComponents;
     private JsonNode primaryComponent;
     private List<String> variables;
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -44,13 +44,13 @@ public class InputNumberProcessorTest {
         - the third one a component with an unknown variable name
         */
         File file = new File(TestConstants.UNIT_TESTS_DIRECTORY + "/lunatic/processor/input_number_component.json");
-        InputNumberComponents = objectMapper.readTree(file);
+        inputNumberComponents = objectMapper.readTree(file);
     }
 
     @Test
     void testProcess_NumberType() {
         //GIVEN
-        primaryComponent = InputNumberComponents.get(0);
+        primaryComponent = inputNumberComponents.get(0);
 
         // WHEN
         processor.process(primaryComponent, metadataModel.getRootGroup(), variables, metadataModel, true);
@@ -64,7 +64,7 @@ public class InputNumberProcessorTest {
     @Test
     void testProcess_IntegerType() {
         //GIVEN
-        primaryComponent = InputNumberComponents.get(1);
+        primaryComponent = inputNumberComponents.get(1);
 
         // WHEN
         processor.process(primaryComponent, metadataModel.getRootGroup(), variables, metadataModel, true);
@@ -78,7 +78,7 @@ public class InputNumberProcessorTest {
     @Test
     void testProcess_UnknownVariable() {
         //GIVEN
-        primaryComponent = InputNumberComponents.get(2);
+        primaryComponent = inputNumberComponents.get(2);
 
         // WHEN
         processor.process(primaryComponent, metadataModel.getRootGroup(), variables, metadataModel, true);
