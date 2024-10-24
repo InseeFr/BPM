@@ -73,7 +73,7 @@
                                     <xsl:otherwise>INTEGER</xsl:otherwise>
                                 </xsl:choose>
                             </xsl:when>
-                            <xsl:otherwise>NUMBER</xsl:otherwise>
+                            <xsl:otherwise>INTEGER</xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <xsl:when test="l:VariableRepresentation/r:TextRepresentation">STRING</xsl:when>
