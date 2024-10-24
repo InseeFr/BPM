@@ -1,4 +1,4 @@
-package fr.insee.bpm.reader.lunatic.processor;
+package fr.insee.bpm.metadata.reader.lunatic.processor;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

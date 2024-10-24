@@ -1,7 +1,6 @@
-package fr.insee.bpm.reader.lunatic;
+package fr.insee.bpm.metadata.reader.lunatic;
 
 import fr.insee.bpm.metadata.model.VariableType;
-import fr.insee.bpm.metadata.reader.lunatic.ComponentLunatic;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
