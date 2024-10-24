@@ -1,0 +1,66 @@
+[
+  {
+    "id": "test01",
+    "page": "3",
+    "options": [
+      {
+        "label": {
+          "type": "VTL",
+          "value": "\"Modalité 1\""
+        },
+        "value": "1"
+      },
+      {
+        "label": {
+          "type": "VTL",
+          "value": "\"Modalité 2\""
+        },
+        "value": "2"
+      },
+      {
+        "label": {
+          "type": "VTL",
+          "value": "\"Modalité 3\""
+        },
+        "value": "3"
+      }
+    ],
+    "response": {
+      "name": "LISTEDROUL"
+    },
+    "mandatory": false,
+    "componentType": "Dropdown"
+  },
+  {
+    "id": "test02",
+    "page": "3",
+    "options": [
+      {
+        "label": {
+          "type": "VTL",
+          "value": "\"Unknown 1\""
+        },
+        "value": "1"
+      },
+      {
+        "label": {
+          "type": "VTL",
+          "value": "\"Unknown 2\""
+        },
+        "value": "2"
+      },
+      {
+        "label": {
+          "type": "VTL",
+          "value": "\"Unknown 3\""
+        },
+        "value": "3"
+      }
+    ],
+    "response": {
+      "name": "UNKNOWN_UCQVAR"
+    },
+    "mandatory": false,
+    "componentType": "Dropdown"
+  }
+]

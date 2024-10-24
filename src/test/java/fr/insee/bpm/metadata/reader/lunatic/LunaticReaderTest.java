@@ -57,7 +57,8 @@ class LunaticReaderTest {
 
 
     @Test
-  //Same test  with DDI [2 groups, 463 variables]
+    //Same test  with DDI [2 groups, 463 variables]
+    //Update test with newer version of Lunatic (log2021x21_web.json uses an old version)
     void readVariablesFromLogX21WebLunaticFile() throws FileNotFoundException {
         //
         MetadataModel variables = LunaticReader.getMetadataFromLunatic(
