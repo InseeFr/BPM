@@ -19,11 +19,14 @@ public class RadioCheckboxProcessor implements ComponentProcessor{
         UcqVariable ucqVarOne = new UcqVariable(variableName, group, VariableType.STRING);
         JsonNode modalitiesOne = primaryComponent.get("options");
         for (JsonNode modality : modalitiesOne){
+            String label ="";
             if (isLunaticV2) {
-                ucqVarOne.addModality(modality.get(VALUE).asText(), modality.get(LABEL).get(VALUE).asText());
+                label = modality.get(LABEL).get(VALUE).asText().replace("\"","");
+                ucqVarOne.addModality(modality.get(VALUE).asText(), label);
                 continue;
             }
-            ucqVarOne.addModality(modality.get(VALUE).asText(), modality.get(LABEL).asText());
+            label = modality.get(LABEL).asText().replace("\"","");
+            ucqVarOne.addModality(modality.get(VALUE).asText(), label);
         }
         metadataModel.getVariables().putVariable(ucqVarOne);
         variables.remove(variableName);
