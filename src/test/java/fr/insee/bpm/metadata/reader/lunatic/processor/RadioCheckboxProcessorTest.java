@@ -33,7 +33,7 @@ class RadioCheckboxProcessorTest {
         variables = new ArrayList<>(List.of("BOUTONRADI","CASECOCHER","VAR2"));
         // Initialization of a processor with an Input Number type component
         processor = new RadioCheckboxProcessor();
-        File file = new File(TestConstants.UNIT_TESTS_DIRECTORY + "/lunatic/processor/radio_checkbox_components.json");
+        File file = new File(TestConstants.UNIT_TESTS_DIRECTORY + "/lunatic/components/radio_checkbox.json");
         radioCheckboxComponents = objectMapper.readTree(file);
     }
 

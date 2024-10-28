@@ -6,9 +6,8 @@ import fr.insee.bpm.TestConstants;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.model.UcqModality;
 import fr.insee.bpm.metadata.model.UcqVariable;
-import fr.insee.bpm.metadata.reader.lunatic.processor.DropdownProcessor;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +34,7 @@ class DropdownProcessorTest {
         variables = new ArrayList<>(List.of("LISTEDROUL","VAR2"));
         // Initialization of a processor with an Input Number type component
         processor = new DropdownProcessor();
-        File file = new File(TestConstants.UNIT_TESTS_DIRECTORY + "/lunatic/processor/dropdown_component.json");
+        File file = new File(TestConstants.UNIT_TESTS_DIRECTORY + "/lunatic/components/dropdown.json");
         dropdownComponents = objectMapper.readTree(file);
     }
 

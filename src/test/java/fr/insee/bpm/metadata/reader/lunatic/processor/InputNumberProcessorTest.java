@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.insee.bpm.TestConstants;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.model.VariableType;
-import fr.insee.bpm.metadata.reader.lunatic.processor.InputNumberProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +39,7 @@ class InputNumberProcessorTest {
         - the second one an input number without decimals
         - the third one a component with an unknown variable name
         */
-        File file = new File(TestConstants.UNIT_TESTS_DIRECTORY + "/lunatic/processor/input_number_component.json");
+        File file = new File(TestConstants.UNIT_TESTS_DIRECTORY + "/lunatic/components/input_number.json");
         inputNumberComponents = objectMapper.readTree(file);
     }
 

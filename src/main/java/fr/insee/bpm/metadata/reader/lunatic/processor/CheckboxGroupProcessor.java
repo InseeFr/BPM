@@ -38,8 +38,8 @@ public class CheckboxGroupProcessor implements ComponentProcessor {
         for (JsonNode response : responses){
             variableName = LunaticUtils.getVariableName(response);
             McqVariable mcqVariable = new McqVariable(variableName, group, VariableType.BOOLEAN);
-            if (isLunaticV2) mcqVariable.setText(response.get(LABEL).get(VALUE).asText());
-            if (!isLunaticV2) mcqVariable.setText(response.get(LABEL).asText());
+            if (isLunaticV2) mcqVariable.setText(response.get(LABEL).get(VALUE).asText().replace("\"",""));
+            if (!isLunaticV2) mcqVariable.setText(response.get(LABEL).asText().replace("\"",""));
             mcqVariable.setInQuestionGrid(true);
             mcqVariable.setQuestionName(questionName);
             metadataModel.getVariables().putVariable(mcqVariable);

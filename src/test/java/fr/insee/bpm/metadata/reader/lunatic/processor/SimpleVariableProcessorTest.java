@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.reader.lunatic.ComponentLunatic;
-import fr.insee.bpm.metadata.reader.lunatic.processor.SimpleVariableProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
