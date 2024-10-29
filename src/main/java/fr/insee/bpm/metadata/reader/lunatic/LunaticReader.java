@@ -2,14 +2,9 @@ package fr.insee.bpm.metadata.reader.lunatic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.bpm.metadata.Constants;
-import fr.insee.bpm.metadata.model.CalculatedVariables;
-import fr.insee.bpm.metadata.model.Group;
-import fr.insee.bpm.metadata.model.McqVariable;
-import fr.insee.bpm.metadata.model.MetadataModel;
-import fr.insee.bpm.metadata.model.SpecType;
-import fr.insee.bpm.metadata.model.UcqVariable;
-import fr.insee.bpm.metadata.model.Variable;
-import fr.insee.bpm.metadata.model.VariableType;
+import fr.insee.bpm.metadata.model.*;
+import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessor;
+import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessorFactory;
 import fr.insee.bpm.utils.json.JsonReader;
 import lombok.extern.log4j.Log4j2;
 
@@ -20,22 +15,16 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static fr.insee.bpm.metadata.Constants.FILTER_RESULT_PREFIX;
-import static fr.insee.bpm.metadata.Constants.MISSING_SUFFIX;
+import static fr.insee.bpm.metadata.Constants.*;
 
 @Log4j2
 public class LunaticReader {
 
 	private static final String BINDING_DEPENDENCIES = "bindingDependencies";
 	private static final String VARIABLES = "variables";
-	private static final String EXCEPTION_MESSAGE = "Unable to read Lunatic questionnaire file: {}";
-	private static final String RESPONSE = "response";
-	private static final String COMPONENTS = "components";
-	private static final String COMPONENT_TYPE = "componentType";
-	private static final String VALUE = "value";
-	private static final String LABEL = "label";
 	private static final String MISSING_RESPONSE = "missingResponse";
 	private static final String LUNATIC_MODEL_VERSION= "lunaticModelVersion";
+	private static final String EXCEPTION_MESSAGE = "Unable to read Lunatic questionnaire file: {}";
 
 	private LunaticReader() {
 		throw new IllegalStateException("Utility class");
@@ -52,7 +41,7 @@ public class LunaticReader {
 		try {
 			JsonNode rootNode = JsonReader.read(lunaticFile);
 			String lunaticModelVersion = rootNode.get(LUNATIC_MODEL_VERSION).asText();
-			boolean isLunaticV2 = compareVersions(lunaticModelVersion, "2.3.0") > 0;
+			boolean isLunaticV2 = LunaticUtils.compareVersions(lunaticModelVersion, "2.3.0") > 0;
 
 			CalculatedVariables calculatedVariables = new CalculatedVariables();
 
@@ -149,7 +138,13 @@ public class LunaticReader {
 			rootNode = JsonReader.read(lunaticFile);
 			List<String> variables = new ArrayList<>();
 			JsonNode variablesNode = rootNode.get(VARIABLES);
-			variablesNode.forEach(newVar -> variables.add(newVar.get("name").asText()));
+			variablesNode.forEach(newVar -> {
+				String varName = newVar.get("name").asText();
+				// We do not add roundabouts PROGRESS variables to the metadata model
+				if (!varName.endsWith(Constants.PROGRESS_VARIABLE_SUFFIX)) {
+					variables.add(varName);
+				}
+			});
 			// Root group is created in VariablesMap constructor
 			MetadataModel metadataModel = new MetadataModel();
 			metadataModel.putSpecVersions(SpecType.LUNATIC,rootNode.get(LUNATIC_MODEL_VERSION).asText());
@@ -161,6 +156,15 @@ public class LunaticReader {
 			for (JsonNode comp : rootComponents) {
 				addResponsesAndMissing(comp, rootGroup, variables, metadataModel);
 			}
+			// We need to add the filter results
+			List<String> varToRemove = new ArrayList<>();
+			for (String variable : variables){
+				if (variable.startsWith(FILTER_RESULT_PREFIX)){
+					LunaticUtils.addLunaticVariable(metadataModel, variable, Constants.FILTER_RESULT_PREFIX, VariableType.BOOLEAN);
+					varToRemove.add(variable);
+				}
+			}
+			varToRemove.forEach(variables::remove);
 			// We add the remaining (not identified in any loops nor root) variables to the root group
 			variables.forEach(
 					varName -> metadataModel.getVariables().putVariable(new Variable(varName, rootGroup, VariableType.STRING)));
@@ -206,8 +210,8 @@ public class LunaticReader {
 		JsonNode primaryComponents = component.get(COMPONENTS);
 		//We create a group only with the name of the first response
 		//Then we add all the variables found in response to the newly created group
-		String groupName = getFirstResponseName(primaryComponents);
-		Group group = getNewGroup(metadataModel, groupName, parentGroup);
+		String groupName = LunaticUtils.getFirstResponseName(primaryComponents);
+		Group group = LunaticUtils.getNewGroup(metadataModel, groupName, parentGroup);
 		for (JsonNode primaryComponent : primaryComponents) {
 			addResponsesAndMissing(primaryComponent, group, variables, metadataModel);
 		}
@@ -239,18 +243,9 @@ public class LunaticReader {
 				groupName = "UNNAMED_" + i;
 			}
 		}
-		Group group = getNewGroup(metadataModel, groupName, parentGroup);
+		Group group = LunaticUtils.getNewGroup(metadataModel, groupName, parentGroup);
 		iterateOnComponentsToFindResponses(component, variables, metadataModel, group);
 		return group;
-	}
-
-	private static String getFirstResponseName(JsonNode components){
-		for(JsonNode component : components){
-			if (component.has(RESPONSE)){
-				return component.get(RESPONSE).get("name").asText();
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -262,122 +257,19 @@ public class LunaticReader {
 	 * @param variables : list of variables to be completed
 	 * @param metadataModel : metadata model of the questionnaire to be completed
 	 */
-	private static void addResponsesAndMissing(JsonNode primaryComponent, Group group, List<String> variables, MetadataModel metadataModel) {
+	public static void addResponsesAndMissing(JsonNode primaryComponent, Group group, List<String> variables, MetadataModel metadataModel) {
 		//We read the name of the collected variables in response(s)
 		//And we deduce the variable type by looking at the component that encapsulate the variable
 		ComponentLunatic componentType = ComponentLunatic.fromJsonName(primaryComponent.get(COMPONENT_TYPE).asText());
-		String variableName;
-		boolean isLunaticV2 = compareVersions(metadataModel.getSpecVersions().get(SpecType.LUNATIC), "2.3.0") > 0;
-		switch(componentType){
-			case DATE_PICKER, CHECKBOX_BOOLEAN, INPUT, TEXT_AREA, SUGGESTER:
-				variableName = getVariableName(primaryComponent);
-				metadataModel.getVariables().putVariable(new Variable(variableName, group, componentType.getType()));
-				variables.remove(variableName);
-				break;
-			case INPUT_NUMBER:
-				variableName = getVariableName(primaryComponent);
-				if (primaryComponent.get("decimals").asInt()==0){
-					metadataModel.getVariables().putVariable(new Variable(variableName, group, VariableType.INTEGER));
-					variables.remove(variableName);
-					break;
-				}
-				metadataModel.getVariables().putVariable(new Variable(variableName, group, VariableType.NUMBER));
-				variables.remove(variableName);
-				break;
-			case DROPDOWN:
-				variableName = getVariableName(primaryComponent);
-				UcqVariable ucqVar = new UcqVariable(variableName, group, VariableType.STRING);
-				JsonNode modalities = primaryComponent.get("options");
-				for (JsonNode modality : modalities){
-					ucqVar.addModality(modality.get(VALUE).asText(), modality.get(LABEL).asText());
-				}
-				metadataModel.getVariables().putVariable(ucqVar);
-				variables.remove(variableName);
-				break;
-			case RADIO, CHECKBOX_ONE:
-				variableName = getVariableName(primaryComponent);
-				UcqVariable ucqVarOne = new UcqVariable(variableName, group, VariableType.STRING);
-				JsonNode modalitiesOne = primaryComponent.get("options");
-				for (JsonNode modality : modalitiesOne){
-					if (isLunaticV2) {
-						ucqVarOne.addModality(modality.get(VALUE).asText(), modality.get(LABEL).get(VALUE).asText());
-						continue;
-					}
-					ucqVarOne.addModality(modality.get(VALUE).asText(), modality.get(LABEL).asText());
-				}
-				metadataModel.getVariables().putVariable(ucqVarOne);
-				variables.remove(variableName);
-				break;
-			case CHECKBOX_GROUP:
-				processCheckboxGroup(primaryComponent, group, variables, metadataModel, isLunaticV2);
-				break;
-			case PAIRWISE_LINKS:
-				// In we case of a pairwiseLinks component we have to iterate on the components to find the responses
-				// It is a nested component, but we treat it differently than the loops because it does not create a new level of information
-				iterateOnComponentsToFindResponses(primaryComponent, variables, metadataModel, group);
-				break;
-			case TABLE:
-				iterateOnTableBody(primaryComponent, group, variables, metadataModel, isLunaticV2);
-				break;
-			case null:
-				log.warn(String.format("%s component type not recognized", primaryComponent.get(COMPONENT_TYPE).asText()));
-				break;
-		}
+		boolean isLunaticV2 = LunaticUtils.compareVersions(metadataModel.getSpecVersions().get(SpecType.LUNATIC), "2.3.0") > 0;
+		ComponentProcessor processor = ComponentProcessorFactory.getProcessor(componentType);
+		processor.process(primaryComponent, group, variables, metadataModel, isLunaticV2);
+
 		//We also had the missing variable if it exists (only one missing variable even if multiple responses)
 		addMissingVariable(primaryComponent, group, variables, metadataModel);
 	}
 
-	/**
-	 * Process a checkbox group to create a boolean variable for each response
-	 * @param checkboxComponent : component representing a checkbox group
-	 * @param group : group to which the variables belong
-	 * @param variables : list of variables to be completed
-	 * @param metadataModel : metadata model of the questionnaire to be completed
-	 * @param isLunaticV2 : true if the Lunatic version is 2.3 or higher
-	 */
-	private static void processCheckboxGroup(JsonNode checkboxComponent, Group group, List<String> variables, MetadataModel metadataModel, boolean isLunaticV2) {
-		String variableName;
-		JsonNode responses = checkboxComponent.get("responses");
-		List<String> responsesName= new ArrayList<>();
-		for (JsonNode response : responses){
-			responsesName.add(getVariableName(response));
-		}
-		String questionName = findLongestCommonPrefix(responsesName);
-		for (JsonNode response : responses){
-			variableName = getVariableName(response);
-			McqVariable mcqVariable = new McqVariable(variableName, group, VariableType.BOOLEAN);
-			if (isLunaticV2) mcqVariable.setText(response.get(LABEL).get(VALUE).asText());
-			if (!isLunaticV2) mcqVariable.setText(response.get(LABEL).asText());
-			mcqVariable.setInQuestionGrid(true);
-			mcqVariable.setQuestionName(questionName);
-			metadataModel.getVariables().putVariable(mcqVariable);
-			variables.remove(variableName);
-		}
-	}
 
-	/**
-	 * Iterate on the components in the body of a table to find the responses
-	 * @param tableComponent : component representing a table
-	 * @param group : group to which the variables belong
-	 * @param variables : list of variables to be completed
-	 * @param metadataModel : metadata model of the questionnaire to be completed
-	 * @param isLunaticV2 : true if the Lunatic version is 2.3 or higher
-	 */
-	private static void iterateOnTableBody(JsonNode tableComponent, Group group, List<String> variables, MetadataModel metadataModel, boolean isLunaticV2) {
-		// In we case of a table component we have to iterate on the body components to find the responses
-		// The body is a nested array of arrays
-		// In Lunatic 2.2 and lower the body is called cells
-		JsonNode body = isLunaticV2 ? tableComponent.get("body") : tableComponent.get("cells");
-		for(JsonNode arr : body){
-			if (arr.isArray()){
-				for (JsonNode cell : arr){
-					if (cell.has(COMPONENT_TYPE)) {
-						addResponsesAndMissing(cell, group, variables, metadataModel);
-					}
-				}
-			}
-		}
-	}
 
 	/**
 	 * Add the missing variable defined in the component if present
@@ -394,15 +286,6 @@ public class LunaticReader {
 		}
 	}
 
-	/**
-	 * Get the name of the variable collected by a component
-	 * @param component : a questionnaire component
-	 * @return the name of the variable
-	 */
-	private static String getVariableName(JsonNode component) {
-		return component.get(RESPONSE).get("name").asText();
-	}
-
 	private static void iterateOnComponentsToFindResponses(JsonNode node, List<String> variables, MetadataModel metadataModel, Group group) {
 		JsonNode components = node.get(COMPONENTS);
 		if (components.isArray()){
@@ -410,13 +293,6 @@ public class LunaticReader {
 				addResponsesAndMissing(component, group, variables, metadataModel);
 			}
 		}
-	}
-
-	private static Group getNewGroup(MetadataModel metadataModel, String newName, Group parentGroup) {
-		log.info("Creation of group : {}", newName);
-		Group group = new Group(String.format("%s_%s",Constants.LOOP_NAME_PREFIX,newName), parentGroup.getName());
-		metadataModel.putGroup(group);
-		return group;
 	}
 
 	/**
@@ -436,66 +312,5 @@ public class LunaticReader {
 			return null;
 		}
 	}
-
-	/**
-	 * Find the common part of a list of strings that differs only at the end
-	 *
-	 * @param similarStrings : list of strings
-	 * @return the common prefix
-	 */
-	public static String findLongestCommonPrefix(List<String> similarStrings) {
-		int minLength = similarStrings.getFirst().length();
-		for(String str : similarStrings){
-			if (str.length()<minLength){
-				minLength = str.length();
-			}
-		}
-		String commonPrefix="";
-		for(int i=1;i<minLength;i++){
-			boolean isCommon=true;
-			String stringToTest = similarStrings.getFirst().substring(0,i);
-			for (String str : similarStrings){
-				if (!str.startsWith(stringToTest)){
-					isCommon=false;
-					break;
-				}
-			}
-			if (isCommon){
-				commonPrefix = stringToTest;
-			} else {
-				break;
-			}
-		}
-
-		return commonPrefix;
-	}
-
-	/**
-	 * Compare two versions of the form x.y.z
-	 *
-	 * @param version1 : version of the form x.y.z
-	 * @param version2 : version of the form x.y.z
-	 * @return 1 if version1 is greater, 0 if they are equal, -1 if version2 is greater.
-	 */
-	public static int compareVersions(String version1, String version2) {
-		int comparisonResult = 0;
-
-		String[] version1Splits = version1.split("\\.");
-		String[] version2Splits = version2.split("\\.");
-		int maxLengthOfVersionSplits = Math.max(version1Splits.length, version2Splits.length);
-
-		for (int i = 0; i < maxLengthOfVersionSplits; i++){
-			Integer v1 = i < version1Splits.length ? Integer.parseInt(version1Splits[i]) : 0;
-			Integer v2 = i < version2Splits.length ? Integer.parseInt(version2Splits[i]) : 0;
-			int compare = v1.compareTo(v2);
-			if (compare != 0) {
-				comparisonResult = compare;
-				break;
-			}
-		}
-		return comparisonResult;
-	}
-
-
 
 }
