@@ -1,0 +1,101 @@
+[
+  {
+    "id": "test1",
+    "page": "2",
+    "options": [
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 1\""
+        },
+        "value": "1"
+      },
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 2\""
+        },
+        "value": "2"
+      },
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 3\""
+        },
+        "value": "3"
+      }
+    ],
+    "response": {
+      "name": "BOUTONRADI"
+    },
+    "mandatory": false,
+    "orientation": "VERTICAL",
+    "componentType": "Radio"
+  },
+  {
+    "id": "test2",
+    "page": "4",
+    "options": [
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 1\""
+        },
+        "value": "1"
+      },
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 2\""
+        },
+        "value": "2"
+      },
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 3\""
+        },
+        "value": "3"
+      }
+    ],
+    "response": {
+      "name": "CASECOCHER"
+    },
+    "mandatory": false,
+    "orientation": "VERTICAL",
+    "componentType": "CheckboxOne"
+  },
+  {
+    "id": "test3",
+    "page": "2",
+    "options": [
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 1\""
+        },
+        "value": "1"
+      },
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 2\""
+        },
+        "value": "2"
+      },
+      {
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 3\""
+        },
+        "value": "3"
+      }
+    ],
+    "response": {
+      "name": "UNKNOWN_UCQVAR"
+    },
+    "mandatory": false,
+    "orientation": "VERTICAL",
+    "componentType": "Radio"
+  }
+]

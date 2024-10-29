@@ -1,0 +1,40 @@
+[
+  {
+    "id": "lzgzryja",
+    "page": "2",
+    "responses": [
+      {
+        "id": "lzgzryja-QOP-lzgzvtva",
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 1\""
+        },
+        "response": {
+          "name": "QUESTIONCH1"
+        }
+      },
+      {
+        "id": "lzgzryja-QOP-lzgzvpwd",
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 2\""
+        },
+        "response": {
+          "name": "QUESTIONCH2"
+        }
+      },
+      {
+        "id": "lzgzryja-QOP-lzh007iz",
+        "label": {
+          "type": "VTL|MD",
+          "value": "\"Modalité 3\""
+        },
+        "response": {
+          "name": "QUESTIONCH3"
+        }
+      }
+    ],
+    "orientation": "VERTICAL",
+    "componentType": "CheckboxGroup"
+  }
+]

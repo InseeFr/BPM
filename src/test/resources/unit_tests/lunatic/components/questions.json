@@ -1,0 +1,70 @@
+[
+  {
+    "id": "question-lz9wh5gy",
+    "page": "2",
+    "label": {
+      "type": "VTL|MD",
+      "value": "\"1\\. \" || \"Question simple texte\""
+    },
+    "components": [
+      {
+        "id": "lz9wh5gy",
+        "page": "2",
+        "response": {
+          "name": "QSIMPLETXT"
+        },
+        "mandatory": false,
+        "maxLength": 249,
+        "componentType": "Input"
+      }
+    ],
+    "componentType": "Question",
+    "conditionFilter": {
+      "type": "VTL",
+      "value": "true"
+    }
+  },
+  {
+    "id": "question-lzcs0rqe",
+    "page": "3",
+    "label": {
+      "type": "VTL|MD",
+      "value": "\"2\\. \" || \"Question simple date\""
+    },
+    "components": [
+      {
+        "id": "lzcs0rqe",
+        "max": "format-date(current-date(),'[Y0001]-[M01]-[D01]')",
+        "min": "1900-01-01",
+        "page": "3",
+        "controls": [
+          {
+            "id": "lzcs0rqe-format-date-borne-inf-sup",
+            "type": "SIMPLE",
+            "control": {
+              "type": "VTL",
+              "value": "not(not(isnull(QUESTIONSI)) and (cast(QUESTIONSI, date, \"YYYY-MM-DD\")<cast(\"1900-01-01\", date, \"YYYY-MM-DD\") or cast(QUESTIONSI, date, \"YYYY-MM-DD\")>cast(\"format-date(current-date(),'[Y0001]-[M01]-[D01]')\", date, \"YYYY-MM-DD\")))"
+            },
+            "criticality": "ERROR",
+            "errorMessage": {
+              "type": "VTL|MD",
+              "value": "\"La date saisie doit être comprise entre 1900-01-01 et format-date(current-date(),'[Y0001]-[M01]-[D01]').\""
+            },
+            "typeOfControl": "FORMAT"
+          }
+        ],
+        "response": {
+          "name": "QUESTIONSI"
+        },
+        "mandatory": false,
+        "dateFormat": "YYYY-MM-DD",
+        "componentType": "Datepicker"
+      }
+    ],
+    "componentType": "Question",
+    "conditionFilter": {
+      "type": "VTL",
+      "value": "true"
+    }
+  }
+]

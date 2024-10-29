@@ -1,0 +1,143 @@
+[
+  {
+    "id": "lzcrsjso",
+    "max": 150,
+    "min": 0,
+    "page": "4",
+    "unit": "kg",
+    "controls": [
+      {
+        "id": "lzcrsjso-format-borne-inf-sup",
+        "type": "SIMPLE",
+        "control": {
+          "type": "VTL",
+          "value": "not(not(isnull(QSIMPLENUM)) and (0.0>QSIMPLENUM or 150.0<QSIMPLENUM))"
+        },
+        "criticality": "ERROR",
+        "errorMessage": {
+          "type": "VTL|MD",
+          "value": "\" La valeur doit être comprise entre 0.0 et 150.0.\""
+        },
+        "typeOfControl": "FORMAT"
+      },
+      {
+        "id": "lzcrsjso-format-decimal",
+        "type": "SIMPLE",
+        "control": {
+          "type": "VTL",
+          "value": "not(not(isnull(QSIMPLENUM))  and round(QSIMPLENUM,1)<>QSIMPLENUM)"
+        },
+        "criticality": "ERROR",
+        "errorMessage": {
+          "type": "VTL|MD",
+          "value": "\"Le nombre doit comporter au maximum 1 chiffre(s) après la virgule.\""
+        },
+        "typeOfControl": "FORMAT"
+      }
+    ],
+    "decimals": 1,
+    "response": {
+      "name": "QSIMPLENUM"
+    },
+    "mandatory": false,
+    "description": {
+      "type": "VTL|MD",
+      "value": "Format attendu : un nombre en kg entre 0,0 et 150,0"
+    },
+    "componentType": "InputNumber"
+  },
+  {
+    "id": "lzcrsjsp",
+    "max": 150,
+    "min": 0,
+    "page": "2",
+    "unit": "kg",
+    "controls": [
+      {
+        "id": "lzcrsjsp-format-borne-inf-sup",
+        "type": "SIMPLE",
+        "control": {
+          "type": "VTL",
+          "value": "not(not(isnull(QSIMPLENUM)) and (0>QSIMPLENUM or 150<QSIMPLENUM))"
+        },
+        "criticality": "ERROR",
+        "errorMessage": {
+          "type": "VTL|MD",
+          "value": "\" La valeur doit être comprise entre 0 et 150.\""
+        },
+        "typeOfControl": "FORMAT"
+      },
+      {
+        "id": "lzcrsjsp-format-decimal",
+        "type": "SIMPLE",
+        "control": {
+          "type": "VTL",
+          "value": "not(not(isnull(QSIMPLENUM))  and round(QSIMPLENUM,0)<>QSIMPLENUM)"
+        },
+        "criticality": "ERROR",
+        "errorMessage": {
+          "type": "VTL|MD",
+          "value": "\"Le nombre doit comporter au maximum 0 chiffre(s) après la virgule.\""
+        },
+        "typeOfControl": "FORMAT"
+      }
+    ],
+    "decimals": 0,
+    "response": {
+      "name": "QSIMPLENUM2"
+    },
+    "mandatory": false,
+    "description": {
+      "type": "TXT",
+      "value": "Format attendu : un nombre en kg entre 0 et 150"
+    },
+    "componentType": "InputNumber"
+  },
+  {
+    "id": "lzcrsjsq",
+    "max": 150,
+    "min": 0,
+    "page": "2",
+    "unit": "kg",
+    "controls": [
+      {
+        "id": "lzcrsjsq-format-borne-inf-sup",
+        "type": "SIMPLE",
+        "control": {
+          "type": "VTL",
+          "value": "not(not(isnull(QSIMPLENUM)) and (0>QSIMPLENUM or 150<QSIMPLENUM))"
+        },
+        "criticality": "ERROR",
+        "errorMessage": {
+          "type": "VTL|MD",
+          "value": "\" La valeur doit être comprise entre 0 et 150.\""
+        },
+        "typeOfControl": "FORMAT"
+      },
+      {
+        "id": "lzcrsjsq-format-decimal",
+        "type": "SIMPLE",
+        "control": {
+          "type": "VTL",
+          "value": "not(not(isnull(QSIMPLENUM))  and round(QSIMPLENUM,0)<>QSIMPLENUM)"
+        },
+        "criticality": "ERROR",
+        "errorMessage": {
+          "type": "VTL|MD",
+          "value": "\"Le nombre doit comporter au maximum 0 chiffre(s) après la virgule.\""
+        },
+        "typeOfControl": "FORMAT"
+      }
+    ],
+    "decimals": 0,
+    "response": {
+      "name": "UNKNOWN_NUM"
+    },
+    "mandatory": false,
+    "description": {
+      "type": "TXT",
+      "value": "Format attendu : un nombre en kg entre 0 et 150"
+    },
+    "componentType": "InputNumber"
+  }
+]
