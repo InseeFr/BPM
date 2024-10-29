@@ -1,4 +1,18 @@
 # Changelog
+## 1.0.3 [29-10-2024]
+
+### Add
+- Adds recognition of dynamic tables and roundabouts from Lunatic specification
+
+### Fix
+- Issue with number instead of integer
+- Quality with sonar
+- Refactor of lunatic specification reading
+
+### Update
+- Springboot 3.3.4, then 3.3.5
+- Jackson 2.18.0, then 2.18.1
+- Coverall, maven-javadoc, ...
 
 ## 1.0.2 [18-09-2024]
 ### Changed
