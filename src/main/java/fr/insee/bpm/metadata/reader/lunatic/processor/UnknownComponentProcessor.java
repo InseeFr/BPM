@@ -15,4 +15,5 @@ public class UnknownComponentProcessor implements ComponentProcessor{
     public void process(JsonNode primaryComponent, Group group, List<String> variables, MetadataModel metadataModel, boolean isLunaticV2) {
         log.warn(String.format("%s component type not recognized", primaryComponent.get(COMPONENT_TYPE).asText()));
     }
+
 }

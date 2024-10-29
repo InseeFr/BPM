@@ -24,7 +24,7 @@ public class TableProcessor implements ComponentProcessor{
      * @param isLunaticV2 : true if the Lunatic version is 2.3 or higher
      */
     private static void iterateOnTableBody(JsonNode tableComponent, Group group, List<String> variables, MetadataModel metadataModel, boolean isLunaticV2) {
-        // In we case of a table component we have to iterate on the body components to find the responses
+        // In the case of a table component we have to iterate on the body components to find the responses
         // The body is a nested array of arrays
         // In Lunatic 2.2 and lower the body is called cells
         JsonNode body = isLunaticV2 ? tableComponent.get("body") : tableComponent.get("cells");
