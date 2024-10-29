@@ -6,6 +6,7 @@
 
 ### Fix
 - Issue with number instead of integer
+- Issue with components without type
 - Quality with sonar
 - Refactor of lunatic specification reading
 
