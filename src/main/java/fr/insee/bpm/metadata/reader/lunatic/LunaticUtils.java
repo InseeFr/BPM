@@ -31,13 +31,15 @@ public class LunaticUtils {
 
     public static String getFirstResponseName(JsonNode components) {
         for (JsonNode component : components) {
-            ComponentLunatic componentLunatic = ComponentLunatic.fromJsonName(component.get(Constants.COMPONENT_TYPE).asText());
-            if (componentLunatic == ComponentLunatic.QUESTION) {
-                String result = getFirstResponseName(component.get(Constants.COMPONENTS));
-                if (result != null) return result;
-            } else {
-                if (component.has(RESPONSE)) {
-                    return getVariableName(component);
+            if (component.has(Constants.COMPONENT_TYPE)){
+                ComponentLunatic componentLunatic = ComponentLunatic.fromJsonName(component.get(Constants.COMPONENT_TYPE).asText());
+                if (componentLunatic == ComponentLunatic.QUESTION) {
+                    String result = getFirstResponseName(component.get(Constants.COMPONENTS));
+                    if (result != null) return result;
+                } else {
+                    if (component.has(RESPONSE)) {
+                        return getVariableName(component);
+                    }
                 }
             }
         }
