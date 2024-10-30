@@ -67,6 +67,7 @@
                     <xsl:when test="l:VariableRepresentation/r:NumericRepresentation
                                   | l:VariableRepresentation/r:NumericRepresentationReference">
                         <xsl:choose>
+    				<xsl:when test="l:VariableRepresentation/r:ProcessingInstructionReference">NUMBER</xsl:when>
                             <xsl:when test="descendant::*/@decimalPositions">
                                 <xsl:choose>
                                     <xsl:when test="descendant::*[@decimalPositions][1]/@decimalPositions!='0'">NUMBER</xsl:when>
