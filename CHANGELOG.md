@@ -1,11 +1,14 @@
 # Changelog
+## 1.0.4 [13-12-2024]
+### Fix
+- Issue with decimals in calculated variables
+
 ## 1.0.3 [29-10-2024]
 
 ### Add
 - Adds recognition of dynamic tables and roundabouts from Lunatic specification
 
 ### Fix
-- Issue with number instead of integer
 - Issue with components without type
 - Quality with sonar
 - Refactor of lunatic specification reading
