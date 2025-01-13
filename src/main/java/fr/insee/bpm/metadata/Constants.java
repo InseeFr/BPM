@@ -7,6 +7,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Constants {
+    private Constants() {
+        // Utility class
+    }
+
     // ----- Explicit Variables Names
     public static final String MODE_VARIABLE_NAME = "MODE_KRAFTWERK";
     public static final String FILTER_RESULT_PREFIX = "FILTER_RESULT_";
