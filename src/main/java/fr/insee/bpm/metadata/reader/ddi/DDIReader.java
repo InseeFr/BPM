@@ -148,12 +148,11 @@ public class DDIReader {
 						((Element) groupElements.item(i)).getAttribute("name")));
 			}
 
-			for (String groupName : metadataModel.getSubGroupNames()) {
-				Group group = metadataModel.getGroup(groupName);
-				if (group.getParentName().equals(rootGroupName)) {
-					group.setParentName(Constants.ROOT_GROUP_NAME);
-				}
-			}
+			String finalRootGroupName = rootGroupName;
+			metadataModel.getSubGroupNames().stream()
+					.map(metadataModel::getGroup)
+					.filter(group -> group.getParentName().equals(finalRootGroupName))
+					.forEach(group -> group.setParentName(Constants.ROOT_GROUP_NAME));
 
 		}
 		// Normalize the root group name

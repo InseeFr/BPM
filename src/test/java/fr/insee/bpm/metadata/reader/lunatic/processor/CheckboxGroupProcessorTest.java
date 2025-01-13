@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.insee.bpm.TestConstants;
 import fr.insee.bpm.metadata.model.McqVariable;
 import fr.insee.bpm.metadata.model.MetadataModel;
-import fr.insee.bpm.metadata.model.UcqModality;
-import fr.insee.bpm.metadata.model.UcqVariable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CheckboxGroupProcessorTest {
 
