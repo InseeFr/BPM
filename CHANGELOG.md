@@ -1,4 +1,8 @@
 # Changelog
+## 1.0.5 [13-01-2025]
+### Add
+- No arg constructors for Mapstruct compatibility
+
 ## 1.0.4 [13-12-2024]
 ### Fix
 - Issue with decimals in calculated variables
