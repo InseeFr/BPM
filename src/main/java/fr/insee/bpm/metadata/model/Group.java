@@ -1,6 +1,7 @@
 package fr.insee.bpm.metadata.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Getter
 @Setter
+@NoArgsConstructor
 public class Group {
 
     protected String name;
