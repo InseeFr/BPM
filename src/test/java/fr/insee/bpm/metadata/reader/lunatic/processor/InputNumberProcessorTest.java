@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class InputNumberProcessorTest {
 
@@ -53,7 +56,7 @@ class InputNumberProcessorTest {
 
         // THEN
         assertNotNull(metadataModel.getVariables().getVariables().get("QSIMPLENUM"));
-        assertTrue(metadataModel.getVariables().getVariables().get("QSIMPLENUM").getType() == VariableType.NUMBER);
+        assertSame(VariableType.NUMBER, metadataModel.getVariables().getVariables().get("QSIMPLENUM").getType());
         assertFalse(variables.contains("QSIMPLENUM"), "The variable should be removed from the list");
     }
 
@@ -67,7 +70,7 @@ class InputNumberProcessorTest {
 
         // THEN
         assertNotNull(metadataModel.getVariables().getVariables().get("QSIMPLENUM2"));
-        assertTrue(metadataModel.getVariables().getVariables().get("QSIMPLENUM2").getType() == VariableType.INTEGER);
+        assertSame(VariableType.INTEGER,metadataModel.getVariables().getVariables().get("QSIMPLENUM2").getType());
         assertFalse(variables.contains("QSIMPLENUM2"), "The variable should be removed from the list");
     }
 

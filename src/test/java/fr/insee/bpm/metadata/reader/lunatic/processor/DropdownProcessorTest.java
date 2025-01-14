@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DropdownProcessorTest {
     private DropdownProcessor processor;
@@ -39,7 +42,7 @@ class DropdownProcessorTest {
     }
 
     @Test
-    void testProcess_AddsCorrectModalities() throws Exception {
+    void testProcess_AddsCorrectModalities() {
         //WHEN
         primaryComponent = dropdownComponents.get(0);
         processor.process(primaryComponent, metadataModel.getRootGroup(), variables, metadataModel, true);
