@@ -1,4 +1,9 @@
 # Changelog
+## 1.0.5 [24-01-2025]
+### Fix
+- Resolve issue with coverage in Sonar
+- Quality with sonar
+
 ## 1.0.4 [13-12-2024]
 ### Fix
 - Issue with decimals in calculated variables
