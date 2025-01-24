@@ -3,7 +3,6 @@ package fr.insee.bpm.metadata.reader.lunatic.processor;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.insee.bpm.TestConstants;
-import fr.insee.bpm.metadata.model.McqVariable;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.model.SpecType;
 import fr.insee.bpm.metadata.model.Variable;
@@ -17,7 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TableProcessorTest {
 
