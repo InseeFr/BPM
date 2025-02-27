@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6 [2025-02-27]
+### Update
+- coveralls 2.3.6
+- spring-boot 3.4.3
+- maven compiler 3.14.0
+
 ## 1.0.5 [24-01-2025]
 
 ### Fix
