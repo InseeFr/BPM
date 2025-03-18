@@ -23,7 +23,6 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -49,24 +48,23 @@ public class DDIReader {
 	 * @param ddiUrlString : Path to the DDI file.
 	 *
 	 * @return The variables found in the DDI.
-	 * @throws MetadataParserException
+	 * @throws MetadataParserException when metadata can't be read
 	 */
 	public static MetadataModel getMetadataFromDDI(String ddiUrlString, InputStream ddiInputStream) throws MetadataParserException {
 
 		try {
 			// Path of the output 'variables.xml' temp file
-			File variablesFile = File.createTempFile("variables", ".xml");
-			variablesFile.deleteOnExit();
-			Path variablesTempFilePath = variablesFile.toPath();
+			Path variablesFile = Files.createTempFile("variables", ".xml");
+			variablesFile.toFile().deleteOnExit();
 
-			transformDDI(ddiUrlString, ddiInputStream, variablesTempFilePath);
-			MetadataModel metadataModel = readVariables(variablesTempFilePath);
-			Files.delete(variablesFile.toPath());
+			transformDDI(ddiUrlString, ddiInputStream, variablesFile);
+			MetadataModel metadataModel = readVariables(variablesFile);
+			Files.delete(variablesFile);
 			return metadataModel;
 		}
 
 		catch (MalformedURLException e) {
-			log.error(String.format("Error when converting file path '%s' to an URL.", ddiUrlString), e);
+			log.error("Error when converting file path '{}' to an URL.", ddiUrlString, e);
 			return null;
 		} catch (IOException e) {
 			log.error("Unable to write temp file.", e);
@@ -94,7 +92,7 @@ public class DDIReader {
 	 *
 	 * @param variablesFilePath Path to the transformed xml file.
 	 * @return The variables described in the file.
-	 * @throws MetadataParserException
+	 * @throws MetadataParserException  when metadata can't be read
 	 * @throws IOException
 	 * @throws SAXException
 	 * @throws ParserConfigurationException
@@ -144,8 +142,7 @@ public class DDIReader {
 
 				}
 			} catch (NullPointerException e) {
-				log.error(String.format("Missing field in mandatory information for variable %s",
-						((Element) groupElements.item(i)).getAttribute("name")));
+				log.error("Missing field in mandatory information for variable {}", ((Element) groupElements.item(i)).getAttribute("name"));
 			}
 
 			String finalRootGroupName = rootGroupName;
