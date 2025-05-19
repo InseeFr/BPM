@@ -75,7 +75,7 @@ public class MetadataModelTest {
     }
 
     @BeforeEach
-    public void createTestVariablesMap() {
+    void createTestVariablesMap() {
         metadataModel = new MetadataModel();
 
         Group rootGroup = metadataModel.getRootGroup();

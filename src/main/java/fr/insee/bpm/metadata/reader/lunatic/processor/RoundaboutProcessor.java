@@ -30,7 +30,7 @@ public class RoundaboutProcessor implements ComponentProcessor{
         }
     }
 
-    private static String extractVariableName(String input) {
+    static String extractVariableName(String input) {
         // Regex to capture what's between parenthesis
         Pattern pattern = Pattern.compile("\\((.*?)\\)");
         Matcher matcher = pattern.matcher(input);

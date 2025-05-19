@@ -15,7 +15,7 @@
   <packaging>jar</packaging>
 
   <name>BPM</name>
-  <description>Commmon library for metadata files parsing</description>
+  <description>Common library for metadata files parsing</description>
   <url>https://github.com/InseeFr/BPM</url>
   <organization>
     <name>INSEE</name>
