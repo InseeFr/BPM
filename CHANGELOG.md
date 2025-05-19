@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.7 [2025-05-19] Update dependencies
+### Update
+- Saxon 12.7
+- Jackson core 2.19.0
+- Springboot 3.4.5
+- Jackson monorepo 2.18.3
+
 ## 1.0.6 [2025-02-27]
 ### Update
 - coveralls 2.3.6
