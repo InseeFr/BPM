@@ -1,4 +1,9 @@
 # Changelog
+## 1.0.8 [2025-07-15] Update dependencies
+### Update
+- Saxon 12.8
+- Springboot 3.5.3
+- Jackson monorepo 2.19.1
 
 ## 1.0.7 [2025-05-19] Update dependencies
 ### Update
