@@ -1,4 +1,10 @@
 # Changelog
+## 1.0.9 [2025-07-31] Update dependencies
+### Update
+- Commons compress 1.28.0
+- Springboot 3.5.4
+- Jackson monorepo 2.19.2
+
 ## 1.0.8 [2025-07-15] Update dependencies
 ### Update
 - Saxon 12.8
