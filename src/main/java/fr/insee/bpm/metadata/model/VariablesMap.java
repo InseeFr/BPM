@@ -2,6 +2,7 @@ package fr.insee.bpm.metadata.model;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,12 +18,13 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Getter
+@Setter
 public class VariablesMap {
 
     /** Map containing the variables.
      * Keys: a variable name.
      * Values: Variable. */
-    protected final LinkedHashMap<String, Variable> variables = new LinkedHashMap<>();
+    protected LinkedHashMap<String, Variable> variables = new LinkedHashMap<>();
 
 
 
