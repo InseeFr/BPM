@@ -1,5 +1,5 @@
 # Changelog
-## 1.0.10 [2025-08-07] VariablesMap serialization
+## 1.0.10 [2025-08-04] VariablesMap serialization
 ### Fixed
 - Variables map could not be serialized
 
