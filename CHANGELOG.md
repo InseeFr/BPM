@@ -1,4 +1,8 @@
 # Changelog
+## 1.0.10 [2025-08-07] VariablesMap serialization
+### Fixed
+- Variables map could not be serialized
+
 ## 1.0.9 [2025-07-31] Update dependencies
 ### Update
 - Commons compress 1.28.0
