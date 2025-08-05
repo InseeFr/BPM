@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -53,7 +55,7 @@ public class VariablesMap {
     }
     /** Return the names of all variables in the map. */
     public Set<String> getVariableNames() {
-        return variables.keySet();
+        return variables == null ? new LinkedHashSet<>() : new LinkedHashSet<>(variables.keySet());
     }
     
 
@@ -132,35 +134,35 @@ public class VariablesMap {
     }
 	/** Return the list of all UCQ variables registered in the map. */
 	public List<UcqVariable> getUcqVariables() {
-        return variables.values().stream()
+        return new ArrayList<>(variables.values().stream()
                 .filter(UcqVariable.class::isInstance)
                 .map(UcqVariable.class::cast)
-                .toList();
+                .toList());
     }
 	/** Return the list of all names of UCQ variables registered in the map. */
     public List<String> getUcqVariablesNames() {
-        return variables.values().stream()
+        return new ArrayList<>(variables.values().stream()
                 .filter(UcqVariable.class::isInstance)
                 .map(Variable::getQuestionName)
                 .filter(Objects::nonNull)
                 .distinct()
-                .toList();
+                .toList());
     }
 	/** Return the list of all names of MCQ variables registered in the map. */
     public List<String> getMcqVariablesNames() {
-        return variables.values().stream()
+        return new ArrayList<>(variables.values().stream()
                 .filter(McqVariable.class::isInstance)
                 .map(Variable::getQuestionName)
                 .filter(Objects::nonNull)
                 .distinct()
-                .toList();
+                .toList());
     }
     /** Return the list of all paper UCQ indicators registered in the map. */
     public List<PaperUcq> getPaperUcq() {
-        return variables.values().stream()
+        return new ArrayList<>(variables.values().stream()
                 .filter(PaperUcq.class::isInstance)
                 .map(PaperUcq.class::cast)
-                .toList();
+                .toList());
     }
     
 

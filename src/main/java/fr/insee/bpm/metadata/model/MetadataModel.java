@@ -65,9 +65,9 @@ public class MetadataModel {
     }
     /** Return the names of all groups registered in the map, except the root group. */
     public List<String> getSubGroupNames() {
-        return groups.keySet()
+        return new ArrayList<>(groups.keySet()
                 .stream().filter(name -> ! groups.get(name).isRoot())
-                .toList();
+                .toList());
     }
     
     /** Return the number of groups in the map (including the root group). */
@@ -132,7 +132,7 @@ public class MetadataModel {
     }
 
     public List<String> getSequencesName(){
-        return sequences.stream().map(Sequence::getName).toList();
+        return new ArrayList<>(sequences.stream().map(Sequence::getName).toList());
     }
 
 }
