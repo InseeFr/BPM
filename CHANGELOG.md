@@ -1,7 +1,11 @@
 # Changelog
+## 1.0.11 [2025-08-05] MetadataModel serialization fix
+### Fixed
+- Metadata model could not be serialized from Kraftwerk to Genesis
+
 ## 1.0.10 [2025-08-04] VariablesMap serialization
 ### Fixed
-- Variables map could not be serialized
+- Variables map could not be serialized between Genesis API and DB
 
 ## 1.0.9 [2025-07-31] Update dependencies
 ### Update
