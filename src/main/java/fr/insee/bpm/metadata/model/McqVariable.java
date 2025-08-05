@@ -2,6 +2,7 @@ package fr.insee.bpm.metadata.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
@@ -11,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 @Setter
 @Getter
 @Log4j2
+@NoArgsConstructor
 public class McqVariable extends Variable {
 
 	/** Text associated with the modality. */

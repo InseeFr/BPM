@@ -1,12 +1,14 @@
 package fr.insee.bpm.metadata.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /** In paper data files, UCQ variables are split into several indicator variables,
  * that are not defined in the DDI.
  * This class is meant to store this type of variable,
  * and link them to the corresponding UCQ variable defined in the DDI. */
 @Getter
+@NoArgsConstructor
 public class PaperUcq extends Variable {
 
     String ucqName;
