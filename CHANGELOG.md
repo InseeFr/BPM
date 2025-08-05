@@ -1,4 +1,8 @@
 # Changelog
+## 1.0.12 [2025-08-05] McqVariables serialization fix
+### Fixed
+- MCQ Variables has no constructor
+
 ## 1.0.11 [2025-08-05] MetadataModel serialization fix
 ### Fixed
 - Metadata model could not be serialized from Kraftwerk to Genesis
