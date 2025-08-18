@@ -1,4 +1,8 @@
 # Changelog
+## 1.0.13 [TODO]
+### Updated
+- Javadoc 3.11.3
+
 ## 1.0.12 [2025-08-05] McqVariables serialization fix
 ### Fixed
 - MCQ Variables has no constructor
