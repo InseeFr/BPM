@@ -1,5 +1,5 @@
 # Changelog
-## 1.0.13 [TODO]
+## 1.0.13 [2025-08-19]
 ### Updated
 - Javadoc 3.11.3
 
