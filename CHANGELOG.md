@@ -1,4 +1,12 @@
 # Changelog
+## 1.0.15 [2025-09-11]
+### Updated
+- Jackson monorepo 2.20.0
+
+## 1.0.14 [2025-08-28]
+### Updated
+- Springboot 3.5.5
+
 ## 1.0.13 [2025-08-19]
 ### Updated
 - Javadoc 3.11.3
