@@ -1,0 +1,738 @@
+{
+  "_id": {
+    "$oid": "6895b5abab8605b3e97c4359"
+  },
+  "campaignId": "TEST-GLOB",
+  "interrogationId": "AUTO207",
+  "questionnaireId": "TEST-GLOB",
+  "state": "COLLECTED",
+  "mode": "WEB",
+  "recordDate": {
+    "$date": "2025-08-08T08:30:35.257Z"
+  },
+  "fileDate": {
+    "$date": "2025-07-17T15:13:47.231Z"
+  },
+  "collectedVariables": [
+    {
+      "varId": "TABLEAU2A83",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "42"
+    },
+    {
+      "varId": "TABLEAU2A85",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5"
+    },
+    {
+      "varId": "TABOFATS4",
+      "scope": "TABOFATS",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "33"
+    },
+    {
+      "varId": "TABOFATS5",
+      "scope": "TABOFATS",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "8"
+    },
+    {
+      "varId": "TABOFATS6",
+      "scope": "TABOFATS",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "0"
+    },
+    {
+      "varId": "TABLEAU2A82",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "424"
+    },
+    {
+      "varId": "TABESA2",
+      "scope": "TABESA",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "50"
+    },
+    {
+      "varId": "IMAGE",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "4"
+    },
+    {
+      "varId": "TABLEAU1A3M13",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1A3M11",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1A3M12",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU2A72",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5"
+    },
+    {
+      "varId": "TABLEAU2A73",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5"
+    },
+    {
+      "varId": "BOOLEEN",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "TABLEAU2A74",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5"
+    },
+    {
+      "varId": "CONT_REELA",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1.33"
+    },
+    {
+      "varId": "RADIO_BASIQUE",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "CONT_REELB",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "33"
+    },
+    {
+      "varId": "CONT_ENTIER2",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "3"
+    },
+    {
+      "varId": "CONT_ENTIER1",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "3"
+    },
+    {
+      "varId": "PRENOM_IND",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "RECETTEUR"
+    },
+    {
+      "varId": "HEURE_REMPL",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "8"
+    },
+    {
+      "varId": "CONT_REEL1",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "DUREEHHMM",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "PT0H1M"
+    },
+    {
+      "varId": "CONT_QCM1",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "TABLEAU2A62",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "13"
+    },
+    {
+      "varId": "CONT_REEL",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "-1.3"
+    },
+    {
+      "varId": "TABLEAU2A64",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "24"
+    },
+    {
+      "varId": "CONT_QCM3",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "false"
+    },
+    {
+      "varId": "CONT_QCM2",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "false"
+    },
+    {
+      "varId": "TABLEAU1AH1M21",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "444"
+    },
+    {
+      "varId": "CONT_ENTIER",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "20"
+    },
+    {
+      "varId": "TABLEAU1A3M33",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "42"
+    },
+    {
+      "varId": "TABLEAU1A1M11",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1A3M31",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "42"
+    },
+    {
+      "varId": "TABLEAU1A3M32",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "CONT_QCM_ONR1",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "TABLEAU2A52",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "13"
+    },
+    {
+      "varId": "TABLEAUTIC11",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "3"
+    },
+    {
+      "varId": "TABLEAU1AH1M11",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "233"
+    },
+    {
+      "varId": "DATEAAAA",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2020"
+    },
+    {
+      "varId": "QCM_B7",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "QCM_B6",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "QCM_B8",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "QCM_B3",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "RADIO",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5"
+    },
+    {
+      "varId": "QCM_B2",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "TABOFATS1",
+      "scope": "TABOFATS",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "CC"
+    },
+    {
+      "varId": "QCM_B5",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "TABOFATS2",
+      "scope": "TABOFATS",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "act1"
+    },
+    {
+      "varId": "TABOFATS2",
+      "scope": "TABOFATS",
+      "iteration": 3,
+      "parentId": "RACINE",
+      "value": "act2"
+    },
+    {
+      "varId": "TABLEAU1A3M22",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "QCM_B4",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "TABOFATS3",
+      "scope": "TABOFATS",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1A3M23",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "44"
+    },
+    {
+      "varId": "TABLEAU2A54",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5"
+    },
+    {
+      "varId": "TABLEAU1A3M21",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "33"
+    },
+    {
+      "varId": "QCM_B1",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "true"
+    },
+    {
+      "varId": "CONT_QCM_ONR3",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "CONT_QCM_ONR2",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "QPRODUIT",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "333"
+    },
+    {
+      "varId": "CHECKBOX",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "7"
+    },
+    {
+      "varId": "TABLEAU2A42",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "244"
+    },
+    {
+      "varId": "TABLEAUTIC21",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "SUGGGEO",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "LTU"
+    },
+    {
+      "varId": "COMMENT_QE",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "oui"
+    },
+    {
+      "varId": "TABLEAU1A1M31",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1AH1M41",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "212"
+    },
+    {
+      "varId": "TABLEAU2A43",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5"
+    },
+    {
+      "varId": "TABLEAU1A3M53",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "90"
+    },
+    {
+      "varId": "TABLEAU2A45",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "255"
+    },
+    {
+      "varId": "TABLEAU1A3M51",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "99"
+    },
+    {
+      "varId": "INTEGER",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1022000"
+    },
+    {
+      "varId": "TEXTECOURT",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "azertyuio"
+    },
+    {
+      "varId": "UNIT",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "0"
+    },
+    {
+      "varId": "TEXTELONG",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "Ne laisse pas tomber ta raison dans la langueur, son sommeil est plus funeste que celui de la mort."
+    },
+    {
+      "varId": "TABLEAUTIC31",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1AH1M31",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "444"
+    },
+    {
+      "varId": "DATE",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2000-12-02"
+    },
+    {
+      "varId": "CONT_RADIO",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1A1M21",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "44"
+    },
+    {
+      "varId": "TABLEAU1A3M42",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "TABLEAU2A33",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "522"
+    },
+    {
+      "varId": "TABLEAU1A3M43",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "940"
+    },
+    {
+      "varId": "TABLEAU2A34",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "525"
+    },
+    {
+      "varId": "TABLEAU1A3M41",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "4"
+    },
+    {
+      "varId": "QCM_ONR4",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "QCM_ONR3",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "FLOAT",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "5.5"
+    },
+    {
+      "varId": "QCM_ONR6",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "QCM_ONR5",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "QCM_ONR2",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAUTIC41",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "4"
+    },
+    {
+      "varId": "QCM_ONR1",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "QCM_ONR8",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "QCM_ONR7",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABESTANP2",
+      "scope": "TABESTANP",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "44"
+    },
+    {
+      "varId": "DUREEAAMM",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "P1Y0M"
+    },
+    {
+      "varId": "NAISSANCE",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2000"
+    },
+    {
+      "varId": "TABLEAU1AH1M61",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "24"
+    },
+    {
+      "varId": "TABLEAU2A22",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "4"
+    },
+    {
+      "varId": "TABLEAU2A23",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "25"
+    },
+    {
+      "varId": "TABLEAU2A24",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "52"
+    },
+    {
+      "varId": "TABLEAU1A1M51",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "50"
+    },
+    {
+      "varId": "QCM_ON5",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "3"
+    },
+    {
+      "varId": "TEXTEPE",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "La vertu est une disposition volontaire acquise, consistant en une mediane relative à nous, laquelle est définie par la raison et comme la définirait l’homme intelligent."
+    },
+    {
+      "varId": "QCM_ON3",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2"
+    },
+    {
+      "varId": "QCM_ON4",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "DATEAAMM",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2010-10"
+    },
+    {
+      "varId": "TABESTANP1",
+      "scope": "TABESTANP",
+      "iteration": 1,
+      "parentId": "RACINE",
+      "value": "FRA"
+    },
+    {
+      "varId": "DROPDOWN",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "10"
+    },
+    {
+      "varId": "QSOMME",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2.66"
+    },
+    {
+      "varId": "QCM_ON1",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "4"
+    },
+    {
+      "varId": "TABLEAU1AH1M51",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "24"
+    },
+    {
+      "varId": "QCM_ON2",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU2A11",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "1"
+    },
+    {
+      "varId": "TABLEAU1A1M41",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "4"
+    },
+    {
+      "varId": "TABLEAU2A13",
+      "scope": "RACINE",
+      "iteration": 1,
+      "value": "2255"
+    }
+  ],
+  "externalVariables": [],
+  "_class": "fr.insee.genesis.infrastructure.document.surveyunit.SurveyUnitDocument"
+}

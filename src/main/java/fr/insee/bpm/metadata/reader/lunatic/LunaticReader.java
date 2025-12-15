@@ -3,6 +3,7 @@ package fr.insee.bpm.metadata.reader.lunatic;
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.bpm.metadata.Constants;
 import fr.insee.bpm.metadata.model.*;
+import fr.insee.bpm.metadata.reader.ReaderUtils;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessor;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessorFactory;
 import fr.insee.bpm.utils.json.JsonReader;
@@ -160,7 +161,7 @@ public class LunaticReader {
 			List<String> varToRemove = new ArrayList<>();
 			for (String variable : variables){
 				if (variable.startsWith(FILTER_RESULT_PREFIX)){
-					LunaticUtils.addLunaticVariable(metadataModel, variable, Constants.FILTER_RESULT_PREFIX, VariableType.BOOLEAN);
+					ReaderUtils.addLunaticVariable(metadataModel, variable, Constants.FILTER_RESULT_PREFIX, VariableType.BOOLEAN);
 					varToRemove.add(variable);
 				}
 			}
