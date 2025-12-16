@@ -19,13 +19,14 @@ class ReaderUtilsTest {
         InputStream ddiStream = new FileInputStream(
                 Path.of("src/test/resources/unit_tests/ddi/ddi-log-2021-x21-web.xml").toFile()
         );
-        String lunaticPath = "src/test/resources/unit_tests/lunatic/log2021x21_web.json";
+        InputStream lunaticStream = new FileInputStream(
+                Path.of("src/test/resources/unit_tests/lunatic/log2021x21_web.json").toFile());
 
         // WHEN
         MetadataModel metadataModel = ReaderUtils.getMetadataFromDDIAndLunatic(
                 "file://ddi-log-2021-x21-web.xml",
                 ddiStream,
-                lunaticPath
+                lunaticStream
         );
 
         // THEN
@@ -48,12 +49,13 @@ class ReaderUtilsTest {
         InputStream ddiStream = new FileInputStream(
                 Path.of("src/test/resources/unit_tests/ddi/ddi-log-2021-x21-web.xml").toFile()
         );
-        String lunaticPath = "src/test/resources/unit_tests/lunatic/log2021x21_tel.json";
+        InputStream lunaticStream  = new FileInputStream(
+                Path.of("src/test/resources/unit_tests/lunatic/log2021x21_tel.json").toFile());
 
         MetadataModel metadataModel = ReaderUtils.getMetadataFromDDIAndLunatic(
                 "file://ddi-log-2021-x21-web.xml",
                 ddiStream,
-                lunaticPath
+                lunaticStream
         );
 
         VariablesMap vars = metadataModel.getVariables();

@@ -1,13 +1,14 @@
 package fr.insee.bpm.metadata.reader;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.bpm.exceptions.MetadataParserException;
 import fr.insee.bpm.metadata.Constants;
 import fr.insee.bpm.metadata.model.*;
 import fr.insee.bpm.metadata.reader.lunatic.LunaticReader;
+import fr.insee.bpm.utils.json.JsonReader;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -37,14 +38,14 @@ public class ReaderUtils {
         metadataModel.getVariables().putVariable(new Variable(varName, group, varType));
     }
 
-    public static void addMissingAndFilterVariables(MetadataModel metadataModel, String lunaticFilePath) {
+    public static void addMissingAndFilterVariables(MetadataModel metadataModel, InputStream lunaticInputStream) {
         VariablesMap variablesMap = metadataModel.getVariables();
 
-        try (InputStream lunaticStream = new FileInputStream(lunaticFilePath);
-             InputStream lunaticStream2 = new FileInputStream(lunaticFilePath)) {
+        try {
+            JsonNode rootNode = JsonReader.read(lunaticInputStream);
 
-            List<String> missingVars = LunaticReader.getMissingVariablesFromLunatic(lunaticStream);
-            List<String> filterVars = LunaticReader.getFilterResultFromLunatic(lunaticStream2);
+            List<String> missingVars = LunaticReader.getMissingVariablesFromLunatic(rootNode);
+            List<String> filterVars = LunaticReader.getFilterResultFromLunatic(rootNode);
 
             for (String var : missingVars) {
                 if (!variablesMap.hasVariable(var)) {
@@ -59,21 +60,22 @@ public class ReaderUtils {
             }
 
         } catch (IOException e) {
-            log.error("Error reading Lunatic file: {}", lunaticFilePath, e);
+            log.error("Error reading Lunatic JSON", e);
         }
     }
+
 
     public static MetadataModel getMetadataFromDDIAndLunatic(
             String ddiUrlString,
             InputStream ddiInputStream,
-            String lunaticFilePath
+            InputStream lunaticInputStream
     ) throws MetadataParserException {
 
         MetadataModel metadataModel =
                 getMetadataFromDDI(ddiUrlString, ddiInputStream);
 
-        if (metadataModel != null && lunaticFilePath != null) {
-            ReaderUtils.addMissingAndFilterVariables(metadataModel, lunaticFilePath);
+        if (metadataModel != null && lunaticInputStream != null) {
+            ReaderUtils.addMissingAndFilterVariables(metadataModel, lunaticInputStream);
         }
 
         return metadataModel;

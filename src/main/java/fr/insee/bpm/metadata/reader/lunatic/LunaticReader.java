@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static fr.insee.bpm.metadata.Constants.*;
@@ -73,47 +72,42 @@ public class LunaticReader {
 	 * Read the lunatic file to get the names of the _MISSING variables and the
 	 * collected variables added by Eno which are not present in the DDI
 	 *
-	 * @param lunaticFile Path to a lunatic questionnaire file.
+	 * @param rootNode JsonNode representing the Lunatic questionnaire.
 	 * @return A List of String.
 	 */
-	public static List<String> getMissingVariablesFromLunatic(InputStream lunaticFile) {
-		try {
-			JsonNode rootNode = JsonReader.read(lunaticFile);
-			List<String> variables = new ArrayList<>();
-			List<String> varsEno = Arrays.asList(Constants.getEnoVariables());
+        public static List<String> getMissingVariablesFromLunatic(JsonNode rootNode) {
+            List<String> variables = new ArrayList<>();
+            List<String> varsEno = Arrays.asList(Constants.getEnoVariables());
 
-			JsonNode variablesNode = rootNode.get(VARIABLES);
-			variablesNode.forEach(variableNode -> variables.add(variableNode.get("name").asText()));
-			return variables.stream()
-					.filter(varToRead -> varToRead.endsWith(MISSING_SUFFIX) || varsEno.contains(varToRead)).toList();
+            JsonNode variablesNode = rootNode.get("variables");
+            if (variablesNode != null) {
+                variablesNode.forEach(variableNode -> variables.add(variableNode.get("name").asText()));
+            }
 
-		} catch (IOException e) {
-			log.error(EXCEPTION_MESSAGE, lunaticFile);
-			return Collections.emptyList();
-		}
-	}
+            return variables.stream()
+                    .filter(varToRead -> varToRead.endsWith(Constants.MISSING_SUFFIX) || varsEno.contains(varToRead))
+                    .toList();
+        }
 
 	/**
 	 * Read the lunatic file to get the names of the FILTER_RESULT variables which
 	 * are not present in the DDI
 	 *
-	 * @param lunaticFile Path to a lunatic questionnaire file.
+	 * @param rootNode JsonNode representing the Lunatic questionnaire.
 	 * @return A List of String.
 	 */
-	public static List<String> getFilterResultFromLunatic(InputStream lunaticFile) {
-		try {
-			JsonNode rootNode = JsonReader.read(lunaticFile);
-			List<String> variables = new ArrayList<>();
+        public static List<String> getFilterResultFromLunatic(JsonNode rootNode) {
+            List<String> variables = new ArrayList<>();
 
-			JsonNode variablesNode = rootNode.get(VARIABLES);
-			variablesNode.forEach(variableNode -> variables.add(variableNode.get("name").asText()));
-			return variables.stream().filter(variable -> variable.startsWith(FILTER_RESULT_PREFIX)).toList();
+            JsonNode variablesNode = rootNode.get("variables");
+            if (variablesNode != null) {
+                variablesNode.forEach(variableNode -> variables.add(variableNode.get("name").asText()));
+            }
 
-		} catch (IOException e) {
-			log.error(EXCEPTION_MESSAGE, lunaticFile);
-			return Collections.emptyList();
-		}
-	}
+            return variables.stream()
+                    .filter(var -> var.startsWith(Constants.FILTER_RESULT_PREFIX))
+                    .toList();
+        }
 
 	public static String getLunaticModelVersion(InputStream lunaticFile){
 		try {
