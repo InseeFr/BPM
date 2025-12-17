@@ -8,7 +8,6 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
-import static fr.insee.bpm.metadata.Constants.NAME;
 
 @UtilityClass
 @Log4j2
@@ -22,7 +21,7 @@ public class LunaticUtils {
      * @return the name of the variable
      */
     public static String getVariableName(JsonNode component) {
-        return component.get(RESPONSE).get(NAME).asText();
+        return component.get(RESPONSE).get("name").asText();
     }
 
     public static String getFirstResponseName(JsonNode components) {

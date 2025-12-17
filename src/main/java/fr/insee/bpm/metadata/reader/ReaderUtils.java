@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import static fr.insee.bpm.metadata.reader.ddi.DDIReader.getMetadataFromDDI;
 
 @UtilityClass
 @Slf4j
@@ -29,11 +28,8 @@ public class ReaderUtils {
             group = metadataModel.getVariables().getQuestionGridGroup(correspondingVariableName);
         } else {
             group = metadataModel.getGroup(metadataModel.getGroupNames().getFirst());
-            log.warn(
-                    "No information from the DDI about question named \"{}\". \"{}\" has been arbitrarily associated with group \"{}\".",
-                    correspondingVariableName, varName, group.getName()
-            );
-
+            log.warn("No information from the DDI about question named \"{}\". \"{}\" has been arbitrarily associated with group \"{}\".",
+                    correspondingVariableName, varName, group.getName());
         }
         metadataModel.getVariables().putVariable(new Variable(varName, group, varType));
     }
