@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.bpm.exceptions.MetadataParserException;
 import fr.insee.bpm.metadata.Constants;
 import fr.insee.bpm.metadata.model.*;
+import fr.insee.bpm.metadata.reader.ddi.DDIReader;
 import fr.insee.bpm.metadata.reader.lunatic.LunaticReader;
 import fr.insee.bpm.utils.json.JsonReader;
 import lombok.experimental.UtilityClass;
@@ -28,17 +29,16 @@ public class ReaderUtils {
             group = metadataModel.getVariables().getQuestionGridGroup(correspondingVariableName);
         } else {
             group = metadataModel.getGroup(metadataModel.getGroupNames().getFirst());
-            log.warn(String.format(
-                    "No information from the DDI about question named \"%s\".",
-                    correspondingVariableName));
-            log.warn(String.format(
-                    "\"%s\" has been arbitrarily associated with group \"%s\".",
-                    varName, group.getName()));
+            log.warn(
+                    "No information from the DDI about question named \"{}\". \"{}\" has been arbitrarily associated with group \"{}\".",
+                    correspondingVariableName, varName, group.getName()
+            );
+
         }
         metadataModel.getVariables().putVariable(new Variable(varName, group, varType));
     }
 
-    public static void addMissingAndFilterVariables(MetadataModel metadataModel, InputStream lunaticInputStream) {
+    private static void addMissingAndFilterVariables(MetadataModel metadataModel, InputStream lunaticInputStream) {
         VariablesMap variablesMap = metadataModel.getVariables();
 
         try {
@@ -47,15 +47,15 @@ public class ReaderUtils {
             List<String> missingVars = LunaticReader.getMissingVariablesFromLunatic(rootNode);
             List<String> filterVars = LunaticReader.getFilterResultFromLunatic(rootNode);
 
-            for (String var : missingVars) {
-                if (!variablesMap.hasVariable(var)) {
-                    ReaderUtils.addLunaticVariable(metadataModel, var, Constants.MISSING_SUFFIX, VariableType.STRING);
+            for (String missingVar : missingVars) {
+                if (!variablesMap.hasVariable(missingVar)) {
+                    ReaderUtils.addLunaticVariable(metadataModel, missingVar, Constants.MISSING_SUFFIX, VariableType.STRING);
                 }
             }
 
-            for (String var : filterVars) {
-                if (!variablesMap.hasVariable(var)) {
-                    ReaderUtils.addLunaticVariable(metadataModel, var, Constants.FILTER_RESULT_PREFIX, VariableType.BOOLEAN);
+            for (String filterVar : filterVars) {
+                if (!variablesMap.hasVariable(filterVar)) {
+                    ReaderUtils.addLunaticVariable(metadataModel, filterVar, Constants.FILTER_RESULT_PREFIX, VariableType.BOOLEAN);
                 }
             }
 
@@ -72,7 +72,7 @@ public class ReaderUtils {
     ) throws MetadataParserException {
 
         MetadataModel metadataModel =
-                getMetadataFromDDI(ddiUrlString, ddiInputStream);
+                DDIReader.getMetadataFromDDI(ddiUrlString, ddiInputStream);
 
         if (metadataModel != null && lunaticInputStream != null) {
             ReaderUtils.addMissingAndFilterVariables(metadataModel, lunaticInputStream);

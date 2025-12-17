@@ -29,6 +29,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import static fr.insee.bpm.metadata.Constants.NAME;
 
 @Log4j2
 public class DDIReader {
@@ -117,7 +118,7 @@ public class DDIReader {
 					// Get the group name
 					Element groupElement = (Element) groupNode;
 
-					String groupName = groupElement.getAttribute("name");
+					String groupName = groupElement.getAttribute(NAME);
 					String parentGroupName = groupElement.getAttribute("parent");
 					// To be normalized later : we don't want to create a group of variables for pairwise links.
 					// Pairwise links scope are the individuals
@@ -142,7 +143,7 @@ public class DDIReader {
 
 				}
 			} catch (NullPointerException e) {
-				log.error("Missing field in mandatory information for variable {}", ((Element) groupElements.item(i)).getAttribute("name"));
+				log.error("Missing field in mandatory information for variable {}", ((Element) groupElements.item(i)).getAttribute(NAME));
 			}
 
 			String finalRootGroupName = rootGroupName;
@@ -175,7 +176,7 @@ public class DDIReader {
 		Element variableElement = (Element) variableNode;
 
 		// Variable name, type and size
-		String variableName = getFirstChildValue(variableElement, "Name");
+		String variableName = getFirstChildValue(variableElement, NAME);
 		VariableType variableType = VariableType.valueOf(getFirstChildValue(variableElement, "Format"));
 		String variableLength = getFirstChildValue(variableElement, "Size");
 		String sequenceName= getFirstChildAttribute(variableElement, "Sequence","name");

@@ -32,6 +32,7 @@ public class Constants {
     public static final String PAIRWISE_GROUP_NAME = "LIENS";
     public static final String SAME_AXIS_VALUE = "0";
     public static final String NO_PAIRWISE_VALUE = "99";
+    public static final String NAME = "name";
 
 
     // ----- XSL scripts

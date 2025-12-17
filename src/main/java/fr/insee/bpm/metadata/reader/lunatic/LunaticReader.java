@@ -50,7 +50,7 @@ public class LunaticReader {
 				if (variableNode.get("variableType").asText().equals("CALCULATED")) {
 					String formula = isLunaticV2 ? variableNode.get("expression").get(VALUE).asText().replace("\r\n","")
 							: variableNode.get("expression").asText().replace("\r\n","");
-					CalculatedVariables.CalculatedVariable calculatedVariable = new CalculatedVariables.CalculatedVariable(variableNode.get("name").asText(),
+					CalculatedVariables.CalculatedVariable calculatedVariable = new CalculatedVariables.CalculatedVariable(variableNode.get(NAME).asText(),
 							formula);
 					JsonNode dependantVariablesNode = variableNode.get(BINDING_DEPENDENCIES);
 					if (dependantVariablesNode != null) {
@@ -79,9 +79,9 @@ public class LunaticReader {
             List<String> variables = new ArrayList<>();
             List<String> varsEno = Arrays.asList(Constants.getEnoVariables());
 
-            JsonNode variablesNode = rootNode.get("variables");
+            JsonNode variablesNode = rootNode.get(VARIABLES);
             if (variablesNode != null) {
-                variablesNode.forEach(variableNode -> variables.add(variableNode.get("name").asText()));
+                variablesNode.forEach(variableNode -> variables.add(variableNode.get(NAME).asText()));
             }
 
             return variables.stream()
@@ -99,13 +99,13 @@ public class LunaticReader {
         public static List<String> getFilterResultFromLunatic(JsonNode rootNode) {
             List<String> variables = new ArrayList<>();
 
-            JsonNode variablesNode = rootNode.get("variables");
+            JsonNode variablesNode = rootNode.get(VARIABLES);
             if (variablesNode != null) {
-                variablesNode.forEach(variableNode -> variables.add(variableNode.get("name").asText()));
+                variablesNode.forEach(variableNode -> variables.add(variableNode.get(NAME).asText()));
             }
 
             return variables.stream()
-                    .filter(var -> var.startsWith(Constants.FILTER_RESULT_PREFIX))
+                    .filter(variableName  -> variableName.startsWith(Constants.FILTER_RESULT_PREFIX))
                     .toList();
         }
 
@@ -134,7 +134,7 @@ public class LunaticReader {
 			List<String> variables = new ArrayList<>();
 			JsonNode variablesNode = rootNode.get(VARIABLES);
 			variablesNode.forEach(newVar -> {
-				String varName = newVar.get("name").asText();
+				String varName = newVar.get(NAME).asText();
 				// We do not add roundabouts PROGRESS variables to the metadata model
 				if (!varName.endsWith(Constants.PROGRESS_VARIABLE_SUFFIX)) {
 					variables.add(varName);
@@ -275,7 +275,7 @@ public class LunaticReader {
 	 */
 	private static void addMissingVariable(JsonNode component, Group group, List<String> variables, MetadataModel metadataModel) {
 		if (component.has(MISSING_RESPONSE)){
-			String missingVariable = component.get(MISSING_RESPONSE).get("name").asText();
+			String missingVariable = component.get(MISSING_RESPONSE).get(NAME).asText();
 			metadataModel.getVariables().putVariable(new Variable(missingVariable, group, VariableType.STRING));
 			variables.remove(missingVariable);
 		}
