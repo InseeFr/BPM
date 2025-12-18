@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static fr.insee.bpm.metadata.Constants.*;
 
@@ -163,6 +164,7 @@ public class LunaticReader {
             // We add the remaining (not identified in any loops nor root) variables to the root group
             variables.forEach(
                     varName -> metadataModel.getVariables().putVariable(new Variable(varName, rootGroup, VariableType.STRING)));
+            LunaticReader.addLinkVariablesFromLunatic(metadataModel);
             return metadataModel;
         } catch (IOException e) {
             log.error(EXCEPTION_MESSAGE, lunaticFile);
@@ -307,5 +309,34 @@ public class LunaticReader {
             return null;
         }
     }
+
+    /**
+     * Adds pairwise link variables (LIEN1, LIEN2, ...) to the metadata model
+     * based on Lunatic metadata.
+     * Intended for use in the BPM layer before data persistence.
+     */
+    public static void addLinkVariablesFromLunatic(MetadataModel metadataModel) {
+
+        if (metadataModel.getVariables().getVariable(Constants.LIENS) != null) {
+
+            Group targetGroup =
+                    Optional.ofNullable(metadataModel.getGroups().get(Constants.BOUCLE_PRENOMS))
+                            .orElseGet(() ->
+                                    metadataModel.getGroup(
+                                            metadataModel.getGroupNames().stream()
+                                                    .filter(g -> g.contains("PRENOM"))
+                                                    .findFirst()
+                                                    .orElse(metadataModel.getGroupNames().getFirst())
+                                    )
+                            );
+
+            for (int k = 1; k < Constants.MAX_LINKS_ALLOWED; k++) {
+                metadataModel.getVariables().putVariable(
+                        new Variable(Constants.LIEN + k, targetGroup, VariableType.INTEGER)
+                );
+            }
+    }
+    }
+
 
 }
