@@ -2,7 +2,12 @@ package fr.insee.bpm.metadata.reader.lunatic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.bpm.metadata.Constants;
-import fr.insee.bpm.metadata.model.*;
+import fr.insee.bpm.metadata.model.CalculatedVariables;
+import fr.insee.bpm.metadata.model.Group;
+import fr.insee.bpm.metadata.model.MetadataModel;
+import fr.insee.bpm.metadata.model.SpecType;
+import fr.insee.bpm.metadata.model.Variable;
+import fr.insee.bpm.metadata.model.VariableType;
 import fr.insee.bpm.metadata.reader.ReaderUtils;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessor;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessorFactory;
@@ -14,9 +19,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-import static fr.insee.bpm.metadata.Constants.*;
+import static fr.insee.bpm.metadata.Constants.COMPONENTS;
+import static fr.insee.bpm.metadata.Constants.COMPONENT_TYPE;
+import static fr.insee.bpm.metadata.Constants.FILTER_RESULT_PREFIX;
+import static fr.insee.bpm.metadata.Constants.VALUE;
 
 @Log4j2
 public class LunaticReader {
