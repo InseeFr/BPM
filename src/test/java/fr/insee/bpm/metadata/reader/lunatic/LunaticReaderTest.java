@@ -1,8 +1,10 @@
 package fr.insee.bpm.metadata.reader.lunatic;
 
 import fr.insee.bpm.TestConstants;
+import fr.insee.bpm.metadata.Constants;
 import fr.insee.bpm.metadata.model.CalculatedVariables;
 import fr.insee.bpm.metadata.model.MetadataModel;
+import fr.insee.bpm.metadata.model.VariablesMap;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -70,5 +72,64 @@ class LunaticReaderTest {
         assertEquals(683, variables.getVariables().getVariables().size());
        
     }
+
+    @Test
+    void getMetadataFromLunatic_should_add_missing_variables_for_tel() throws FileNotFoundException {
+        // GIVEN
+        MetadataModel metadataModel = LunaticReader.getMetadataFromLunatic(
+                new FileInputStream(
+                        lunaticSamplesPath.resolve("log2021x21_tel.json").toFile())
+        );
+
+        // THEN
+        assertNotNull(metadataModel);
+
+        VariablesMap vars = metadataModel.getVariables();
+
+        assertTrue(vars.hasVariable("CADR_MISSING"));
+    }
+
+    @Test
+    void getMetadataFromLunatic_should_add_filter_variables_for_web() throws FileNotFoundException {
+        // GIVEN
+        MetadataModel metadataModel = LunaticReader.getMetadataFromLunatic(
+                new FileInputStream(
+                        lunaticSamplesPath.resolve("log2021x21_web.json").toFile())
+        );
+
+        // THEN
+        assertNotNull(metadataModel);
+
+        VariablesMap vars = metadataModel.getVariables();
+        assertTrue(vars.hasVariable("FILTER_RESULT_CADR"));
+    }
+
+
+    @Test
+    void getMetadataFromLunatic_should_add_link_variables() throws FileNotFoundException {
+        // GIVEN
+        MetadataModel metadataModel = LunaticReader.getMetadataFromLunatic(
+                new FileInputStream(
+                        lunaticSamplesPath.resolve("lunaticSAMPLETEST-DATAONLY-v1.json").toFile()
+                )
+        );
+
+        // THEN
+        assertNotNull(metadataModel);
+
+        VariablesMap vars = metadataModel.getVariables();
+
+        // Precondition: LIENS variable must exist in Lunatic file
+        assertTrue(vars.hasVariable(Constants.LIENS));
+
+        // Expected behavior: link variables (LIENx) must be added
+        for (int i = 1; i < Constants.MAX_LINKS_ALLOWED; i++) {
+            assertTrue(
+                    vars.hasVariable(Constants.LIEN + i),
+                    "Missing variable: " + Constants.LIEN + i
+            );
+        }
+    }
+
 
 }

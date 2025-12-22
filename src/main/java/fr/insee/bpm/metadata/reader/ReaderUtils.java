@@ -72,6 +72,7 @@ public class ReaderUtils {
 
         if (metadataModel != null && lunaticInputStream != null) {
             ReaderUtils.addMissingAndFilterVariables(metadataModel, lunaticInputStream);
+            LunaticReader.addLinkVariablesFromLunatic(metadataModel,metadataModel.getGroup(Constants.BOUCLE_PRENOMS));
         }
 
         return metadataModel;
