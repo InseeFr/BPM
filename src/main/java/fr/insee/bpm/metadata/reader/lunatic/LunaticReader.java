@@ -33,6 +33,8 @@ public class LunaticReader {
     private static final String MISSING_RESPONSE = "missingResponse";
     private static final String LUNATIC_MODEL_VERSION= "lunaticModelVersion";
     private static final String EXCEPTION_MESSAGE = "Unable to read Lunatic questionnaire file: {}";
+    private static final String PRENOM = "PRENOM";
+
 
     private LunaticReader() {
         throw new IllegalStateException("Utility class");
@@ -172,7 +174,7 @@ public class LunaticReader {
             variables.forEach(
                     varName -> metadataModel.getVariables().putVariable(new Variable(varName, rootGroup, VariableType.STRING)));
             String groupContainingIndividuals = metadataModel.getGroupNames().stream()
-                    .filter(g -> g.contains("PRENOM"))
+                    .filter(g -> g.contains(PRENOM))
                     .findFirst()
                     .orElse(metadataModel.getGroupNames().getFirst());
             LunaticReader.addLinkVariablesFromLunatic(metadataModel,metadataModel.getGroup(groupContainingIndividuals));
