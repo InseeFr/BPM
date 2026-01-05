@@ -2,7 +2,12 @@ package fr.insee.bpm.metadata.reader.lunatic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.bpm.metadata.Constants;
-import fr.insee.bpm.metadata.model.*;
+import fr.insee.bpm.metadata.model.CalculatedVariables;
+import fr.insee.bpm.metadata.model.Group;
+import fr.insee.bpm.metadata.model.MetadataModel;
+import fr.insee.bpm.metadata.model.SpecType;
+import fr.insee.bpm.metadata.model.Variable;
+import fr.insee.bpm.metadata.model.VariableType;
 import fr.insee.bpm.metadata.reader.ReaderUtils;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessor;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessorFactory;
@@ -15,7 +20,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static fr.insee.bpm.metadata.Constants.*;
+import static fr.insee.bpm.metadata.Constants.COMPONENTS;
+import static fr.insee.bpm.metadata.Constants.COMPONENT_TYPE;
+import static fr.insee.bpm.metadata.Constants.FILTER_RESULT_PREFIX;
+import static fr.insee.bpm.metadata.Constants.VALUE;
 
 @Log4j2
 public class LunaticReader {
@@ -25,6 +33,8 @@ public class LunaticReader {
     private static final String MISSING_RESPONSE = "missingResponse";
     private static final String LUNATIC_MODEL_VERSION= "lunaticModelVersion";
     private static final String EXCEPTION_MESSAGE = "Unable to read Lunatic questionnaire file: {}";
+    private static final String INDIVIDUAL_LOOP = "PRENOM";
+
 
     private LunaticReader() {
         throw new IllegalStateException("Utility class");
@@ -163,6 +173,11 @@ public class LunaticReader {
             // We add the remaining (not identified in any loops nor root) variables to the root group
             variables.forEach(
                     varName -> metadataModel.getVariables().putVariable(new Variable(varName, rootGroup, VariableType.STRING)));
+            String groupContainingIndividuals = metadataModel.getGroupNames().stream()
+                    .filter(g -> g.contains(INDIVIDUAL_LOOP))
+                    .findFirst()
+                    .orElse(metadataModel.getGroupNames().getFirst());
+            LunaticReader.addLinkVariablesFromLunatic(metadataModel,metadataModel.getGroup(groupContainingIndividuals));
             return metadataModel;
         } catch (IOException e) {
             log.error(EXCEPTION_MESSAGE, lunaticFile);
@@ -307,5 +322,22 @@ public class LunaticReader {
             return null;
         }
     }
+
+    /**
+     * Adds pairwise link variables (LIEN1, LIEN2, ...) to the metadata model
+     * based on Lunatic metadata.
+     * Intended for use in the BPM layer before data persistence.
+     */
+    public static void addLinkVariablesFromLunatic(MetadataModel metadataModel, Group targetGroup) {
+        if (metadataModel.getVariables().getVariable(Constants.LIENS) != null) {
+
+        for (int k = 1; k < Constants.MAX_LINKS_ALLOWED; k++) {
+            metadataModel.getVariables().putVariable(
+                    new Variable(Constants.LIEN + k, targetGroup, VariableType.INTEGER)
+            );
+        }
+        }
+    }
+
 
 }
