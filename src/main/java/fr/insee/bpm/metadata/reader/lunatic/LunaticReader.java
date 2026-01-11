@@ -8,6 +8,7 @@ import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.model.SpecType;
 import fr.insee.bpm.metadata.model.Variable;
 import fr.insee.bpm.metadata.model.VariableType;
+import fr.insee.bpm.metadata.model.VariablesMap;
 import fr.insee.bpm.metadata.reader.ReaderUtils;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessor;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessorFactory;
@@ -329,13 +330,20 @@ public class LunaticReader {
      * Intended for use in the BPM layer before data persistence.
      */
     public static void addLinkVariablesFromLunatic(MetadataModel metadataModel, Group targetGroup) {
-        if (metadataModel.getVariables().getVariable(Constants.LIENS) != null) {
+        VariablesMap variablesMap = metadataModel.getVariables();
+
+        if (!variablesMap.hasVariable(Constants.LIENS)) {
+            return;
+        }
 
         for (int k = 1; k < Constants.MAX_LINKS_ALLOWED; k++) {
-            metadataModel.getVariables().putVariable(
-                    new Variable(Constants.LIEN + k, targetGroup, VariableType.INTEGER)
-            );
-        }
+            String name = Constants.LIEN + k;
+
+            if (!variablesMap.hasVariable(name)) {
+                variablesMap.putVariable(
+                        new Variable(name, targetGroup, VariableType.INTEGER)
+                );
+            }
         }
     }
 
