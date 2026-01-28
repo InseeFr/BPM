@@ -1,6 +1,6 @@
 package fr.insee.bpm.metadata.reader;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import fr.insee.bpm.exceptions.MetadataParserException;
 import fr.insee.bpm.metadata.Constants;
 import fr.insee.bpm.metadata.model.*;

@@ -1,9 +1,9 @@
 package fr.insee.bpm.metadata.reader.lunatic.processor;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.JsonNodeFactory;
+import tools.jackson.databind.node.ObjectNode;
 import fr.insee.bpm.metadata.model.Group;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.model.Variable;
@@ -98,7 +98,7 @@ class RoundaboutProcessorTest {
 		name.put("name", "name"+type);
 		ObjectNode obj = JsonNodeFactory.instance.objectNode();
 		obj.put("componentType", type);
-		obj.put("response", name);
+		obj.set("response", name);
 		return obj;
 	}
 }
