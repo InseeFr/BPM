@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RadioCheckboxProcessorTest {
+class RadioCheckboxProcessorITest {
 
     private RadioCheckboxProcessor processor;
     private MetadataModel metadataModel;

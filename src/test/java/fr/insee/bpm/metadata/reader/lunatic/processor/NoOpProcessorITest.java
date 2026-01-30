@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class NoOpProcessorTest {
+class NoOpProcessorITest {
 
     private NoOpProcessor processor;
     private MetadataModel metadataModel;

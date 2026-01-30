@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SimpleVariableProcessorTest {
+class SimpleVariableProcessorITest {
 
     private SimpleVariableProcessor processor;
     private MetadataModel metadataModel;

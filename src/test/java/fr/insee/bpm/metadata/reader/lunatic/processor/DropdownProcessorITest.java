@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class DropdownProcessorTest {
+class DropdownProcessorITest {
     private DropdownProcessor processor;
     private MetadataModel metadataModel;
     private JsonNode dropdownComponents;
