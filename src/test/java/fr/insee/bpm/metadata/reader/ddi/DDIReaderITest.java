@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class DDIReaderTest {
+class DDIReaderITest {
 
 	static final String DDI_FOLDER = TestConstants.UNIT_TESTS_DIRECTORY + "/ddi";
 

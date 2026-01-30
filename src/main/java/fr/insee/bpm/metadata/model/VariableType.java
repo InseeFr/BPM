@@ -45,7 +45,8 @@ public enum VariableType {
 			return STRING;
 		} else if (clazz.isAssignableFrom(Boolean.class)){
 			return BOOLEAN;
-		} else if (clazz.isAssignableFrom(Date.class)||clazz.isAssignableFrom(Instant.class)){
+		} else if (clazz.isAssignableFrom(Date.class)
+				||clazz.isAssignableFrom(Instant.class)){
 			return DATE;
 		} else {
 			log.warn(String.format("Unrecognized type for class %s ", clazz));

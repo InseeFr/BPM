@@ -295,8 +295,7 @@ class VariablesMapTest {
         //GIVEN
         String variableName = "testVariable";
         McqVariable mcqVariable = new McqVariable(variableName, new Group("testGroup"), VariableType.BOOLEAN);
-        String questionName = "question";
-        mcqVariable.questionName = questionName;
+        mcqVariable.questionName = "question";
         variablesMap.getVariables().put(variableName, mcqVariable);
         String variableName2 = "testVariable2";
         UcqVariable ucqVariable = new UcqVariable(variableName2, new Group("testGroup2"), VariableType.STRING);
