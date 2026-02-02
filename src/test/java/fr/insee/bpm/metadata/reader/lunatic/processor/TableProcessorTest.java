@@ -19,7 +19,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class TableProcessorITest {
+class TableProcessorTest {
 
     private TableProcessor processor;
     private MetadataModel metadataModel;

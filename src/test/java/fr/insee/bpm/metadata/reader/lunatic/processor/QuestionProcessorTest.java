@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class QuestionProcessorITest {
+class QuestionProcessorTest {
 
     private QuestionProcessorStub processor;
     private MetadataModel metadataModel;

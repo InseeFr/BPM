@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(MockitoExtension.class)
-class RoundaboutProcessorITest {
+class RoundaboutProcessorTest {
 	MetadataModel metadataModel;
 	Variable loopVariable;
 	Group groupRoundabout;

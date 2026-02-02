@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UnknownComponentProcessorITest {
+class UnknownComponentProcessorTest {
 
     private UnknownComponentProcessor processor;
     private MetadataModel metadataModel;
