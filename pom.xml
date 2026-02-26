@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.10</version>
+    <version>3.5.11</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>fr.insee.bpm</groupId>
   <artifactId>bpm</artifactId>
-  <version>1.0.25</version>
+  <version>1.0.26</version>
   <packaging>jar</packaging>
 
   <name>BPM</name>
