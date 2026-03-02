@@ -21,6 +21,7 @@ public class JsonReader {
      */
     public static JsonNode read(InputStream inputStream) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
         return mapper.readTree(inputStream);
     }
 
