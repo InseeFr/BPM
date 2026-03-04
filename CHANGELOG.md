@@ -1,4 +1,8 @@
 # Changelog
+## 1.1.0 [TODO]
+### Changed
+- Java 21 -> 25
+
 ## 1.0.15 [2025-09-11]
 ### Updated
 - Jackson monorepo 2.20.0
