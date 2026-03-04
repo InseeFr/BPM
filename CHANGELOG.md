@@ -1,5 +1,5 @@
 # Changelog
-## 1.1.0 [TODO]
+## 1.1.0 [2026-03-04]
 ### Changed
 - Java 21 -> 25
 
