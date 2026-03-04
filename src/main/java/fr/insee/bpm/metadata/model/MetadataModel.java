@@ -16,7 +16,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Getter @Setter
+@Getter
+@Setter
 public class MetadataModel {
 
 	private VariablesMap variables = new VariablesMap();
@@ -74,11 +75,14 @@ public class MetadataModel {
     public int getGroupsCount() {
         return groups.size();
     }
-    
+
     /** Identifiers are not represented by Variable objects, they are:
      * - the root identifier (fixed value),
      * - each subgroup name is also an identifier name.
-     * @return The list of all identifiers associated to the variables map. */
+     * @return The list of all identifiers associated to the variables map.
+     * DEPRECATED : Same logic as getGroupNames
+     * */
+    @Deprecated(forRemoval = true)
     public List<String> getIdentifierNames() {
         List<String> res = new ArrayList<>(List.of(Constants.ROOT_IDENTIFIER_NAME));
         res.addAll(getSubGroupNames());
