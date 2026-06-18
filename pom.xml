@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.14</version>
+    <version>4.0.6</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>fr.insee.bpm</groupId>
   <artifactId>bpm</artifactId>
-  <version>1.1.5</version>
+  <version>1.2.0</version>
   <packaging>jar</packaging>
 
   <name>BPM</name>
@@ -44,7 +44,6 @@
     <maven.compiler.release>25</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <jackson.version>2.21.4</jackson.version>
     <jacoco.version>0.8.12</jacoco.version>
   </properties>
 
@@ -90,22 +89,10 @@
       <scope>provided</scope>
     </dependency>
     <!-- JSON -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <!-- TODO use ${jackson.version} when 2.21.1 is available on maven central -->
-      <version>2.22</version>
-    </dependency>
+      <dependency>
+          <groupId>tools.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+      </dependency>
     <!-- XML libraries -->
     <!-- XML-XSLT with Saxon -->
     <dependency>

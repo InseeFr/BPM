@@ -1,8 +1,8 @@
 package fr.insee.bpm.metadata.reader.lunatic.processor;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import fr.insee.bpm.metadata.model.MetadataModel;
 import fr.insee.bpm.metadata.reader.lunatic.ComponentLunatic;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +34,7 @@ class SimpleVariableProcessorTest {
     }
 
     @Test
-    void testProcess_AddsVariableToMetadataModel() throws JsonProcessingException {
+    void testProcess_AddsVariableToMetadataModel() throws JacksonException {
         //GIVEN
         String json = "{\"id\": \"lz9wh5gy\",\"page\": \"2\",\"response\": {\"name\": \"QSIMPLETXT\"},\"mandatory\": false,\"maxLength\": 249,\"componentType\": \"Input\"}";
         primaryComponent = objectMapper.readTree(json);
@@ -49,7 +49,7 @@ class SimpleVariableProcessorTest {
     }
 
     @Test
-    void testProcess_IfVariableNameNotInList() throws JsonProcessingException {
+    void testProcess_IfVariableNameNotInList() throws JacksonException {
         //GIVEN
         // The primary component contains a variable not identified in the list of variables to add in the metadata model
         String json = "{\"id\": \"lz9wh5gy\",\"page\": \"2\",\"response\": {\"name\": \"UnknownVariable\"},\"mandatory\": false,\"maxLength\": 249,\"componentType\": \"Input\"}";

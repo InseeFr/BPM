@@ -1,4 +1,8 @@
 # Changelog
+## 1.2.0 [TODO]
+### Changed
+- spring-boot 3.5.14 -> 4.0.6
+ 
 ## 1.1.0 [2026-03-04]
 ### Changed
 - Java 21 -> 25

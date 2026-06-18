@@ -1,28 +1,30 @@
 package fr.insee.bpm.utils.json;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class JsonReader {
 
-    JsonReader(){
+    private static final JsonMapper MAPPER = JsonMapper.builder()
+            .findAndAddModules()
+            .build();
+
+    JsonReader() {
         throw new IllegalStateException("Utility class");
     }
 
     /**
-     * Read a json input stream
+     * Read a json input stream.
      *
-     * @param inputStream Path to a json file.
-     *
-     *  @return A jackson.databind.JsonNode.
+     * @param inputStream JSON input stream
+     * @return Jackson JsonNode
      */
     public static JsonNode read(InputStream inputStream) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules();
-        return mapper.readTree(inputStream);
+        return MAPPER.readTree(inputStream);
     }
 
 }
