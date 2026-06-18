@@ -1,5 +1,5 @@
 # Changelog
-## 1.2.0 [TODO]
+## 1.2.0 [2026-06-18]
 ### Changed
 - spring-boot 3.5.14 -> 4.0.6
  
