@@ -1,4 +1,9 @@
 # Changelog
+## 1.2.1 [TODO]
+### Fixed
+- Empty sasFormat exception
+- XSLT : put modality in content and code as attribute
+
 ## 1.1.0 [2026-03-04]
 ### Changed
 - Java 21 -> 25
