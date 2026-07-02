@@ -1,6 +1,5 @@
 package fr.insee.bpm.metadata.reader.lunatic;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import fr.insee.bpm.metadata.Constants;
 import fr.insee.bpm.metadata.model.CalculatedVariables;
 import fr.insee.bpm.metadata.model.Group;
@@ -14,6 +13,7 @@ import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessor;
 import fr.insee.bpm.metadata.reader.lunatic.processor.ComponentProcessorFactory;
 import fr.insee.bpm.utils.json.JsonReader;
 import lombok.extern.log4j.Log4j2;
+import tools.jackson.databind.JsonNode;
 
 import java.io.IOException;
 import java.io.InputStream;

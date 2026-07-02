@@ -4,6 +4,10 @@
 - Empty sasFormat exception
 - XSLT : put modality in content and code as attribute
 
+## 1.2.0 [2026-06-18]
+### Changed
+- spring-boot 3.5.14 -> 4.0.6
+ 
 ## 1.1.0 [2026-03-04]
 ### Changed
 - Java 21 -> 25

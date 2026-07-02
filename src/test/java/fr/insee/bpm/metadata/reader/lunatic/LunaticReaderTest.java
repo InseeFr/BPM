@@ -119,7 +119,7 @@ class LunaticReaderTest {
 
         VariablesMap vars = metadataModel.getVariables();
 
-        // Precondition: LIENS variable must exist in Lunatic file
+        // Precondition: LINK variable must exist in Lunatic file
         assertTrue(vars.hasVariable(Constants.LIENS));
 
         // Expected behavior: link variables (LIENx) must be added
