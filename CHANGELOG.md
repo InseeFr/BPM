@@ -1,5 +1,5 @@
 # Changelog
-## 1.2.5 [TODO]
+## 1.2.5 [2026-09-03]
 ### Fixed
 - Empty sasFormat can break Jackson
 
