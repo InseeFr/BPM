@@ -54,15 +54,13 @@ public class Variable {
 	}
 
 	public int getExpectedLength(){
-		if (this.sasFormat != null && this.sasFormat.contains(".")){
+		if (this.sasFormat == null || this.sasFormat.isEmpty() || this.sasFormat.equals(".")){
+			return 1;
+		}
+		if (this.sasFormat.contains(".")){
 			String[] sasFormatPart = this.sasFormat.split("\\.");
 			return Integer.parseInt(sasFormatPart[0]);
 		}
-		if (this.sasFormat != null){
-			return Integer.parseInt(this.sasFormat);
-		}
-		// Not sure about that return
-		return 1;
+		return Integer.parseInt(this.sasFormat);
 	}
-
 }
