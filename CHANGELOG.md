@@ -1,9 +1,14 @@
 # Changelog
-## 1.2.1 [TODO]
+
+## 1.2.5 [2026-09-03]
+### Fixed
+- Empty sasFormat can break Jackson
+
+## 1.2.1 [2026-07-18]
 ### Fixed
 - Empty sasFormat exception
 - XSLT : put modality in content and code as attribute
-
+- 
 ## 1.2.0 [2026-06-18]
 ### Changed
 - spring-boot 3.5.14 -> 4.0.6

@@ -55,26 +55,18 @@ public class Variable {
 		return group.getName();
 	}
 
-	public int getExpectedLength(){
-		if(this.sasFormat == null){
-			return 1;
-		}
-		if(this.sasFormat.isEmpty()){
-			log.warn("Empty SAS format for variable {}", this.name);
-			return 1;
-		}
+    public int getExpectedLength() {
+        if (this.sasFormat == null || this.sasFormat.isEmpty() || this.sasFormat.equals(".")) {
+            return 1;
+        }
 
-		String sasFormatToReturn = this.sasFormat;
-		if (this.sasFormat.contains(".")){
-			sasFormatToReturn = this.sasFormat.split("\\.")[0];
-		}
-		try{
-			return Integer.parseInt(sasFormatToReturn);
-		}catch (NumberFormatException _){
-			log.warn("Invalid sas format \"{}\" for variable {}", sasFormatToReturn, this.name);
-			// Not sure about that return
-			return 1;
-		}
-	}
+        String format = this.sasFormat.split("\\.")[0];
 
+        try {
+            return Integer.parseInt(format);
+        } catch (NumberFormatException _) {
+            log.warn("Invalid SAS format \"{}\" for variable {}", this.sasFormat, this.name);
+            return 1;
+        }
+    }
 }
