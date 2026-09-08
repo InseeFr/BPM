@@ -228,8 +228,8 @@ public class DDIReader {
         for (int k = 0; k < valueElements.getLength(); k++) {
             Node valueElement = valueElements.item(k);
             if (nodeIsElementWithName(valueElement, "Value")) {
-                variable.addModality(valueElement.getTextContent(),
-                        ((Element) valueElement).getAttribute("label"));
+                variable.addModality(((Element) valueElement).getAttribute("code"),
+                        valueElement.getTextContent());
 
             }
         }

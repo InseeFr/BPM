@@ -40,8 +40,22 @@ class VariableTest {
         //WHEN + THEN
         Assertions.assertThat(variable.getExpectedLength()).isEqualTo(2);
     }
+
     @Test
-    void getExpectedLengthTest_empty(){
+    void getExpectedLengthTest_empty_or_invalid(){
+        //GIVEN
+        variable.sasFormat = "";
+
+        //WHEN + THEN
+        Assertions.assertThat(variable.getExpectedLength()).isEqualTo(1);
+    }
+
+    @Test
+    void getExpectedLengthTest_null(){
+        //GIVEN
+        variable.sasFormat = null;
+
+        //WHEN + THEN
         Assertions.assertThat(variable.getExpectedLength()).isEqualTo(1);
     }
 }
