@@ -3,6 +3,7 @@ package fr.insee.bpm.metadata.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Object class to represent a variable.
@@ -10,6 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @NoArgsConstructor
+@Slf4j
 public class Variable {
 
 	/** Variable name. */
@@ -53,14 +55,18 @@ public class Variable {
 		return group.getName();
 	}
 
-	public int getExpectedLength(){
-		if (this.sasFormat == null || this.sasFormat.isEmpty() || this.sasFormat.equals(".")){
-			return 1;
-		}
-		if (this.sasFormat.contains(".")){
-			String[] sasFormatPart = this.sasFormat.split("\\.");
-			return Integer.parseInt(sasFormatPart[0]);
-		}
-		return Integer.parseInt(this.sasFormat);
-	}
+    public int getExpectedLength() {
+        if (this.sasFormat == null || this.sasFormat.isEmpty() || this.sasFormat.equals(".")) {
+            return 1;
+        }
+
+        String format = this.sasFormat.split("\\.")[0];
+
+        try {
+            return Integer.parseInt(format);
+        } catch (NumberFormatException _) {
+            log.warn("Invalid SAS format \"{}\" for variable {}", this.sasFormat, this.name);
+            return 1;
+        }
+    }
 }

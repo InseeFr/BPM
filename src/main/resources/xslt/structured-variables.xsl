@@ -270,8 +270,8 @@
         <xsl:variable name="value-id" select="r:CategoryReference/r:ID"/>
         <xsl:variable name="value-label" select="$root//g:ResourcePackage/l:CategoryScheme/l:Category[r:ID = $value-id]
                                                                                                     /r:Label/r:Content[@xml:lang='fr-FR']"/>
-        <Value label="{normalize-space($value-label)}">
-            <xsl:value-of select="r:Value"/>
+        <Value code="{r:Value}">
+            <xsl:value-of select="normalize-space($value-label)"/>
         </Value>
     </xsl:template>
 
